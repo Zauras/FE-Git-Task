@@ -1,5 +1,6 @@
-import {Fragment, ReactNode} from "react";
-import {PageContainerSC} from "./styles/PageContainerSC";
+import { Fragment, ReactNode } from 'react';
+
+import { PageContainerSC } from './styles/PageContainerSC';
 
 const FullPageLayout = (props: { children?: ReactNode }) => (
     <Fragment>
@@ -7,5 +8,4 @@ const FullPageLayout = (props: { children?: ReactNode }) => (
     </Fragment>
 );
 
-
-export default FullPageLayout
+export default FullPageLayout;
