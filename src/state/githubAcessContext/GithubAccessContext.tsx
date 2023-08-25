@@ -24,7 +24,6 @@ const GitHubAccessProvider = ({ children }: { children: ReactNode }) => {
 
     const handleSetAccessToken = (accessToken: string) => {
         (async () => {
-            // TODO set is loading
             const { data, error } = await reqGetGitHubUser({ accessToken });
 
             if (data) {
@@ -33,8 +32,6 @@ const GitHubAccessProvider = ({ children }: { children: ReactNode }) => {
                     userName: data.name,
                 });
             }
-
-            // TODO set is not loading
         })();
     };
 

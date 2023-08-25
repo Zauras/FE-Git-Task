@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import TextInputSC from '@/components/Input/TextInputSC.styles';
 import ButtonSC from '@/components/Button/ButtonSC.styles';
@@ -10,6 +10,10 @@ const RepositorySearchPanel = ({
     onRepoSearch: () => void;
     onRepoSearchQueryChange: (query: string) => void;
 }) => {
+    const handleQueryInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        onRepoSearchQueryChange(event.target.value);
+    };
+
     return (
         <aside>
             <h3>GitHub Repositories</h3>
@@ -20,7 +24,7 @@ const RepositorySearchPanel = ({
                         placeholder="Keyword"
                         type="search"
                         name="search-repo"
-                        onChange={(e) => onRepoSearchQueryChange(e.target.value)}
+                        onChange={handleQueryInputChange}
                     />
 
                     <div id="search-spinner" aria-hidden hidden={true} />

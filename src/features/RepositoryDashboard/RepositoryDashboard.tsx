@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { reqGetGitHubRepoReleases, reqGetGithubRepoSearchByStars } from '@/api/gitHubApi';
-import RepoReleasesModal from '@/features/RepositoryDashboard/components/RepoReleasesModal';
+import RepoReleasesModal from '@/features/RepositoryDashboard/components/ReleasesModal/RepoReleasesModal';
 import UserPanel from '@/features/UserPanel/UserPanel';
 import RepositoryList from '@/features/RepositoryDashboard/components/RepositoryList';
 import RepositorySearchPanel from '@/features/RepositoryDashboard/components/RepositorySearchPanel';
@@ -9,7 +9,8 @@ import LimitReqErrorPopUp from '@/features/RepositoryDashboard/components/LimitR
 import { IRepoReleasesDto } from '@/models/github/releasesModels';
 import { IRepoInfoDto } from '@/models/github/repositoryModels';
 import CommonApiErrorPopUp from '@/features/RepositoryDashboard/components/CommonApiErrorPopUp';
-import RepositorySearchPanelContainerSCStyles from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC.styles';
+import RepositorySearchPanelContainerSC from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC.styles';
+import RepositoryDashboardSC from '@/features/RepositoryDashboard/styles/RepositoryDashboardSC.styles';
 
 interface ICommonApiErrorDto {
     isError: boolean;
@@ -71,9 +72,7 @@ const RepositoryDashboard = () => {
     };
 
     return (
-        <div>
-            <RepoReleasesModal repoReleases={repoReleases} closeModal={() => setRepoReleases([])} />
-
+        <RepositoryDashboardSC>
             <LimitReqErrorPopUp
                 isLimitReqError={isLimitReqError}
                 removeLimitReqError={removeLimitReqError}
@@ -85,18 +84,19 @@ const RepositoryDashboard = () => {
                 removeError={handleRemoveCommonApiError}
             />
 
-            <h1>GitHub Repositories Search</h1>
+            <RepoReleasesModal repoReleases={repoReleases} closeModal={() => setRepoReleases([])} />
+
             <UserPanel />
 
-            <RepositorySearchPanelContainerSCStyles>
+            <RepositorySearchPanelContainerSC>
                 <RepositorySearchPanel
                     onRepoSearch={handleRepoSearch}
                     onRepoSearchQueryChange={setRepoSearchKeyword}
                 />
 
                 <RepositoryList repoList={repoList} onRepoClick={handleRepoClick} />
-            </RepositorySearchPanelContainerSCStyles>
-        </div>
+            </RepositorySearchPanelContainerSC>
+        </RepositoryDashboardSC>
     );
 };
 

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const TableSC = styled.table<{ columnCount: number }>`
+const TableSC = styled.table<{ columnCount: number; isItemsClickable?: boolean }>`
     min-width: 100%;
     overflow-y: auto;
 
@@ -17,6 +17,10 @@ const TableSC = styled.table<{ columnCount: number }>`
         grid-gap: 0.5rem 0;
         padding-top: 0.5rem;
 
+        tr {
+            cursor: ${({ isItemsClickable }) => (isItemsClickable ? 'pointer' : '')};
+        }
+
         tr:last-child {
             border-bottom: none;
         }
@@ -29,9 +33,9 @@ const TableSC = styled.table<{ columnCount: number }>`
 
     tr {
         display: grid;
-        grid-template-columns: minmax(10rem, 1fr) repeat(
+        grid-template-columns: minmax(12rem, 1fr) repeat(
                 ${(props) => props.columnCount - 1},
-                7.5rem
+                8.5rem
             );
         grid-gap: 0 1rem;
 

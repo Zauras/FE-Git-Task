@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const RepositorySearchPanelContainerSCStyles = styled.div`
+const RepositorySearchPanelContainerSC = styled.div`
     display: flex;
     flex-direction: column;
 
@@ -25,4 +25,4 @@ const RepositorySearchPanelContainerSCStyles = styled.div`
     }
 `;
 
-export default RepositorySearchPanelContainerSCStyles;
+export default RepositorySearchPanelContainerSC;

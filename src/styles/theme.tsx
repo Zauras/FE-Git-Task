@@ -2,7 +2,7 @@ import { Theme } from '@emotion/react';
 
 const theme: Theme = {
     colors: {
-        primary: '#1d31b6',
+        primary: '#3c6ed3',
         primaryDisabled: '#6b73b1',
         success: '#28a745',
         warning: '#ffc107',
@@ -24,6 +24,8 @@ const theme: Theme = {
         pastelGreen: '#32D886',
         pastelSkyBlue: '#1DA1F2',
         pastelDarkBlueViolet: '#2B3148',
+
+        accentPrimary: '#1DA1F2',
     },
     bps: {
         sm: '641px',
