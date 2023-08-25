@@ -1,6 +1,9 @@
 import { ChangeEvent, useContext, useState } from 'react';
 
 import { GitHubAccessContext } from '@/state/githubAcessContext/GithubAccessContext';
+import ButtonSC from '@/components/Button/ButtonSC.styles';
+import TextInputSC from '@/components/Input/TextInputSC.styles';
+import UserPanelContainerSC from '@/features/UserPanel/styles/UserPanelContainerSC.styles';
 
 const UserPanel = () => {
     const { gitHubAccessDto, logInByAccessToken, logOut } = useContext(GitHubAccessContext);
@@ -11,36 +14,44 @@ const UserPanel = () => {
     };
 
     return (
-        <div>
+        <UserPanelContainerSC>
             {gitHubAccessDto.userName ? (
-                <div>
-                    <div>Hello there, {gitHubAccessDto.userName}</div>
-                    <button onClick={logOut}>Log Out</button>
+                <div className="user-profile-container">
+                    <h3 className="user-greeting">Hello there, {gitHubAccessDto.userName}</h3>
+                    <ButtonSC onClick={logOut}>Log Out</ButtonSC>
                 </div>
             ) : (
-                <div>
-                    <form id="set-github-token" role="input">
-                        <input
-                            id="set-github-token-input"
-                            aria-label="Access Token"
-                            placeholder="access token"
-                            type="input"
-                            name="access-token-input"
-                            value={accessTokenInputValue}
-                            onChange={handleAccessTokenInputChange}
-                        />
+                <div className="log-in-panel-container">
+                    <h3>Log In</h3>
 
-                        <div id="search-spinner" aria-hidden hidden={true} />
+                    <div className="log-in-form-container">
+                        <form id="set-github-token" role="input">
+                            <TextInputSC
+                                id="set-github-token-input"
+                                aria-label="Access Token"
+                                minWidth="20rem"
+                                placeholder="Access token"
+                                type="input"
+                                name="access-token-input"
+                                value={accessTokenInputValue}
+                                onChange={handleAccessTokenInputChange}
+                            />
 
-                        <div className="sr-only" aria-live="polite"></div>
-                    </form>
+                            <div id="search-spinner" aria-hidden hidden={true} />
 
-                    <button type="submit" onClick={() => logInByAccessToken(accessTokenInputValue)}>
-                        Log In
-                    </button>
+                            <div className="sr-only" aria-live="polite"></div>
+                        </form>
+
+                        <ButtonSC
+                            type="submit"
+                            onClick={() => logInByAccessToken(accessTokenInputValue)}
+                        >
+                            Submit
+                        </ButtonSC>
+                    </div>
                 </div>
             )}
-        </div>
+        </UserPanelContainerSC>
     );
 };
 

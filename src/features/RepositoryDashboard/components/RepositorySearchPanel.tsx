@@ -1,5 +1,8 @@
 import React from 'react';
 
+import TextInputSC from '@/components/Input/TextInputSC.styles';
+import ButtonSC from '@/components/Button/ButtonSC.styles';
+
 const RepositorySearchPanel = ({
     onRepoSearch,
     onRepoSearchQueryChange,
@@ -12,7 +15,7 @@ const RepositorySearchPanel = ({
             <h3>GitHub Repositories</h3>
             <div className="search-panel">
                 <form className="search-form" role="search">
-                    <input
+                    <TextInputSC
                         aria-label="Search repositories"
                         placeholder="Keyword"
                         type="search"
@@ -25,9 +28,9 @@ const RepositorySearchPanel = ({
                     <div className="sr-only" aria-live="polite"></div>
                 </form>
 
-                <button type="submit" onClick={onRepoSearch}>
+                <ButtonSC type="submit" onClick={onRepoSearch}>
                     Search
-                </button>
+                </ButtonSC>
             </div>
         </aside>
     );

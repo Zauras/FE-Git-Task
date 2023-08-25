@@ -4,10 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import FullPageLayout from './components/Layout/FullPageLayout';
+import FullPageLayout from '@/components/PageLayout/FullPageLayout';
 import HomePage from '@/pages/HomePage';
 import theme from '@/styles/theme';
-import { PageContainerSC } from '@/components/Layout/styles/PageContainerSC';
+import { PageContainerSC } from '@/components/PageLayout/styles/PageContainerSC';
 import { GitHubAccessProvider } from '@/state/githubAcessContext/GithubAccessContext';
 import RepositoryDashboard from '@/features/RepositoryDashboard/RepositoryDashboard';
 // @ts-ignore

@@ -9,7 +9,7 @@ import LimitReqErrorPopUp from '@/features/RepositoryDashboard/components/LimitR
 import { IRepoReleasesDto } from '@/models/github/releasesModels';
 import { IRepoInfoDto } from '@/models/github/repositoryModels';
 import CommonApiErrorPopUp from '@/features/RepositoryDashboard/components/CommonApiErrorPopUp';
-import RepositorySearchPanelContainerSC from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC';
+import RepositorySearchPanelContainerSCStyles from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC.styles';
 
 interface ICommonApiErrorDto {
     isError: boolean;
@@ -88,14 +88,14 @@ const RepositoryDashboard = () => {
             <h1>GitHub Repositories Search</h1>
             <UserPanel />
 
-            <RepositorySearchPanelContainerSC>
+            <RepositorySearchPanelContainerSCStyles>
                 <RepositorySearchPanel
                     onRepoSearch={handleRepoSearch}
                     onRepoSearchQueryChange={setRepoSearchKeyword}
                 />
 
                 <RepositoryList repoList={repoList} onRepoClick={handleRepoClick} />
-            </RepositorySearchPanelContainerSC>
+            </RepositorySearchPanelContainerSCStyles>
         </div>
     );
 };

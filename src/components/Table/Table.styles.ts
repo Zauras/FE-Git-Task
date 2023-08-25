@@ -34,6 +34,7 @@ const TableSC = styled.table<{ columnCount: number }>`
                 7.5rem
             );
         grid-gap: 0 1rem;
+
         padding: 1.5rem;
         border-bottom: 1px solid ${(props) => props.theme.colors.borderGray};
     }
