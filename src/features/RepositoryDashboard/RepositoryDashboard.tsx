@@ -9,6 +9,7 @@ import LimitReqErrorPopUp from '@/features/RepositoryDashboard/components/LimitR
 import { IRepoReleasesDto } from '@/models/github/releasesModels';
 import { IRepoInfoDto } from '@/models/github/repositoryModels';
 import CommonApiErrorPopUp from '@/features/RepositoryDashboard/components/CommonApiErrorPopUp';
+import RepositorySearchPanelContainerSC from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC';
 
 interface ICommonApiErrorDto {
     isError: boolean;
@@ -73,12 +74,11 @@ const RepositoryDashboard = () => {
         <div>
             <RepoReleasesModal repoReleases={repoReleases} closeModal={() => setRepoReleases([])} />
 
-            {/*<button onClick={() => setIsLimitReqError(true)}>ERROR</button>*/}
-
             <LimitReqErrorPopUp
                 isLimitReqError={isLimitReqError}
                 removeLimitReqError={removeLimitReqError}
             />
+
             <CommonApiErrorPopUp
                 isError={commonApiErrorDto.isError}
                 statusCode={commonApiErrorDto.statusCode}
@@ -86,15 +86,16 @@ const RepositoryDashboard = () => {
             />
 
             <h1>GitHub Repositories Search</h1>
-
             <UserPanel />
 
-            <RepositorySearchPanel
-                onRepoSearch={handleRepoSearch}
-                onRepoSearchQueryChange={setRepoSearchKeyword}
-            />
+            <RepositorySearchPanelContainerSC>
+                <RepositorySearchPanel
+                    onRepoSearch={handleRepoSearch}
+                    onRepoSearchQueryChange={setRepoSearchKeyword}
+                />
 
-            <RepositoryList repoList={repoList} onRepoClick={handleRepoClick} />
+                <RepositoryList repoList={repoList} onRepoClick={handleRepoClick} />
+            </RepositorySearchPanelContainerSC>
         </div>
     );
 };

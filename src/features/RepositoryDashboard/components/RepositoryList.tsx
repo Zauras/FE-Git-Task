@@ -1,12 +1,7 @@
 import React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
 import { IRepoInfoDto } from '@/models/github/repositoryModels';
+import TableSC from '@/components/Table/Table.styles';
 
 const RepositoryList = ({
     repoList,
@@ -16,36 +11,33 @@ const RepositoryList = ({
     onRepoClick: (repo: IRepoInfoDto) => void;
 }) => {
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell align="right">Repo Name</TableCell>
-                        <TableCell align="right">Star Count</TableCell>
-                    </TableRow>
-                </TableHead>
+        <div>
+            <TableSC columnCount={4}>
+                <thead>
+                    <tr>
+                        <th align={'left'}>Nr</th>
+                        <th align={'left'}>ID</th>
+                        <th>Repo Name</th>
+                        <th align={'right'}>Star Count</th>
+                    </tr>
+                </thead>
 
-                <TableBody>
-                    {repoList.map((repo) => (
-                        <button onClick={() => onRepoClick(repo)}>
-                            <TableRow
-                                key={repo.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {repo.id}
-                                </TableCell>
-
-                                <TableCell align="right">{repo.name}</TableCell>
-
-                                <TableCell align="right">{repo.stargazers_count}</TableCell>
-                            </TableRow>
-                        </button>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                <tbody>
+                    {repoList.length > 0 ? (
+                        repoList.map((repo, i) => (
+                            <tr key={repo.id} onClick={() => onRepoClick(repo)}>
+                                <td>{i + 1}</td>
+                                <td>{repo.id}</td>
+                                <td align={'center'}>{repo.name}</td>
+                                <td align={'right'}>{repo.stargazers_count}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <div className={'no-table-content-container'}>No results</div>
+                    )}
+                </tbody>
+            </TableSC>
+        </div>
     );
 };
 

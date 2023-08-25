@@ -2,12 +2,15 @@ import React from 'react';
 
 import RepositoryDashboard from '@/features/RepositoryDashboard/RepositoryDashboard';
 import { GitHubAccessProvider } from '@/state/githubAcessContext/GithubAccessContext';
+import FullPageLayout from '@/components/Layout/FullPageLayout';
 
 const HomePage = () => {
     return (
         <>
             <GitHubAccessProvider>
-                <RepositoryDashboard />
+                <FullPageLayout>
+                    <RepositoryDashboard />
+                </FullPageLayout>
             </GitHubAccessProvider>
         </>
     );

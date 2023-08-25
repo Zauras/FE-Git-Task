@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const PageContainerSC = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    color: white;
-    background-color: #131a22;
+    color: ${(props) => props.theme.colors.textGray};
+    background-color: ${(props) => props.theme.colors.white};
 `;
