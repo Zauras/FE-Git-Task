@@ -13,17 +13,7 @@ const theme: Theme = {
         lightTextGray: '#7A7E88',
         textGray: '#4E5157',
 
-        grayLightest: '#acb1b4',
-        grayLight: '#8a8d91',
-        grayDark: '#333333',
-
         white: '#ffffff',
-        green: '#1cb06c',
-        red: '#e25656',
-
-        pastelGreen: '#32D886',
-        pastelSkyBlue: '#1DA1F2',
-        pastelDarkBlueViolet: '#2B3148',
 
         accentPrimary: '#1DA1F2',
     },

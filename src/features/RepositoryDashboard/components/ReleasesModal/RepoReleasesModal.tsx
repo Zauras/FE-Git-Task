@@ -25,7 +25,12 @@ const RepoReleasesModal = ({
     closeModal: () => void;
 }) => {
     return (
-        <Modal isOpen={repoReleases.length > 0} style={customStyles} contentLabel="Example Modal">
+        <Modal
+            ariaHideApp={false}
+            isOpen={repoReleases.length > 0}
+            style={customStyles}
+            contentLabel="Example Modal"
+        >
             <ReleaseContentSC>
                 <div className="modal-header">
                     <div className="header-label">

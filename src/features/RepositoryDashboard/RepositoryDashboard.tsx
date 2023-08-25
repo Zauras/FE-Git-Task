@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { reqGetGitHubRepoReleases, reqGetGithubRepoSearchByStars } from '@/api/gitHubApi';
 import RepoReleasesModal from '@/features/RepositoryDashboard/components/ReleasesModal/RepoReleasesModal';
@@ -11,6 +11,7 @@ import { IRepoInfoDto } from '@/models/github/repositoryModels';
 import CommonApiErrorPopUp from '@/features/RepositoryDashboard/components/CommonApiErrorPopUp';
 import RepositorySearchPanelContainerSC from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC.styles';
 import RepositoryDashboardSC from '@/features/RepositoryDashboard/styles/RepositoryDashboardSC.styles';
+import { GitHubAccessContext } from '@/state/githubAcessContext/GithubAccessContext';
 
 interface ICommonApiErrorDto {
     isError: boolean;
@@ -18,6 +19,7 @@ interface ICommonApiErrorDto {
 }
 
 const RepositoryDashboard = () => {
+    const { gitHubAccessDto } = useContext(GitHubAccessContext);
     const [isLimitReqError, setIsLimitReqError] = useState(false);
     const [commonApiErrorDto, setCommonApiErrorDto] = useState<ICommonApiErrorDto>({
         isError: false,
@@ -42,6 +44,7 @@ const RepositoryDashboard = () => {
         const resp = await reqGetGitHubRepoReleases({
             repoOwner: repo.owner.login,
             repoName: repo.name,
+            accessToken: gitHubAccessDto.accessToken,
         });
 
         if (resp.status == 403) {
@@ -56,6 +59,7 @@ const RepositoryDashboard = () => {
     const handleRepoSearch = async () => {
         const resp = await reqGetGithubRepoSearchByStars({
             searchString: repoSearchKeyword,
+            accessToken: gitHubAccessDto.accessToken,
         });
 
         if (resp.status == 403) {
