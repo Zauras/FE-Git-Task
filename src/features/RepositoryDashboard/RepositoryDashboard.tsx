@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { reqGetGitHubRepoReleases, reqGetGithubRepoSearchByStars } from '@/api/gitHubApi';
 import RepoReleasesModal from '@/features/RepositoryDashboard/components/ReleasesModal/RepoReleasesModal';
 import UserPanel from '@/features/UserPanel/UserPanel';
-import RepositoryList from '@/features/RepositoryDashboard/components/RepositoryList';
+import RepositoryList from '@/features/RepositoryDashboard/components/RepositoryList/RepositoryList';
 import RepositorySearchPanel from '@/features/RepositoryDashboard/components/RepositorySearchPanel';
 import LimitReqErrorPopUp from '@/features/RepositoryDashboard/components/LimitReqErrorPopUp';
 import { IRepoReleasesDto } from '@/models/github/releasesModels';
