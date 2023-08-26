@@ -12,6 +12,7 @@ import CommonApiErrorPopUp from '@/features/RepositoryDashboard/components/Commo
 import RepositorySearchPanelContainerSC from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC.styles';
 import RepositoryDashboardSC from '@/features/RepositoryDashboard/styles/RepositoryDashboardSC.styles';
 import { GitHubAccessContext } from '@/state/githubAcessContext/GithubAccessContext';
+import LoadingScreen from '@/features/RepositoryDashboard/components/LoadingScreen/LoadingScreen';
 
 interface ICommonApiErrorDto {
     isError: boolean;
@@ -26,6 +27,7 @@ const RepositoryDashboard = () => {
         statusCode: null,
     });
 
+    const [isLoading, setIsLoading] = useState(false);
     const [repoSearchKeyword, setRepoSearchKeyword] = useState<string>('');
     const [repoList, setRepoList] = useState<IRepoInfoDto[]>([]);
     const [repoReleases, setRepoReleases] = useState<IRepoReleasesDto[]>([]);
@@ -41,6 +43,7 @@ const RepositoryDashboard = () => {
     };
 
     const handleRepoClick = async (repo: IRepoInfoDto) => {
+        setIsLoading(true);
         const resp = await reqGetGitHubRepoReleases({
             repoOwner: repo.owner.login,
             repoName: repo.name,
@@ -54,9 +57,11 @@ const RepositoryDashboard = () => {
         } else {
             handleTriggerCommonApiError(resp.status);
         }
+        setIsLoading(false);
     };
 
     const handleRepoSearch = async () => {
+        setIsLoading(true);
         const resp = await reqGetGithubRepoSearchByStars({
             searchString: repoSearchKeyword,
             accessToken: gitHubAccessDto.accessToken,
@@ -69,6 +74,7 @@ const RepositoryDashboard = () => {
         } else {
             handleTriggerCommonApiError(resp.status);
         }
+        setIsLoading(false);
     };
 
     const removeLimitReqError = () => {
@@ -93,12 +99,14 @@ const RepositoryDashboard = () => {
             <UserPanel />
 
             <RepositorySearchPanelContainerSC>
-                <RepositorySearchPanel
-                    onRepoSearch={handleRepoSearch}
-                    onRepoSearchQueryChange={setRepoSearchKeyword}
-                />
+                <LoadingScreen isLoading={isLoading}>
+                    <RepositorySearchPanel
+                        onRepoSearch={handleRepoSearch}
+                        onRepoSearchQueryChange={setRepoSearchKeyword}
+                    />
 
-                <RepositoryList repoList={repoList} onRepoClick={handleRepoClick} />
+                    <RepositoryList repoList={repoList} onRepoClick={handleRepoClick} />
+                </LoadingScreen>
             </RepositorySearchPanelContainerSC>
         </RepositoryDashboardSC>
     );
