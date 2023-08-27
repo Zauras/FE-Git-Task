@@ -33,7 +33,7 @@ const LoadingScreenSC = styled.div`
         transform-origin: center;
         animation-name: animation;
         animation-duration: 1.2s;
-        animation-timing-function: cubic-bezier;
+        animation-timing-function: linear;
         animation-iteration-count: infinite;
 
         circle {

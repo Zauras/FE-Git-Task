@@ -11,11 +11,7 @@ const LoadingScreen = ({ isLoading, children }: { isLoading: boolean; children: 
                         <svg viewBox="0 0 100 100">
                             <defs>
                                 <filter id="shadow">
-                                    <feDropShadow
-                                        dx="0"
-                                        dy="0"
-                                        stdDeviation="1.5"
-                                    />
+                                    <feDropShadow dx="0" dy="0" stdDeviation="1.5" />
                                 </filter>
                             </defs>
                             <circle cx="50" cy="50" r="45" />

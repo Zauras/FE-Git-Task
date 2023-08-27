@@ -3,15 +3,15 @@ import React from 'react';
 
 const LimitReqErrorPopUp = ({
     isLimitReqError,
-    removeLimitReqError,
+    removeError = () => null,
 }: {
     isLimitReqError: boolean;
-    removeLimitReqError: () => void;
+    removeError?: () => void;
 }) => {
     return (
         <Popup
             open={isLimitReqError}
-            onClose={removeLimitReqError}
+            onClose={removeError}
             position="center center"
             closeOnDocumentClick
         >

@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState } from 'react';
 
 import { reqGetGitHubUser } from '@/api/gitHubApi';
+import { GIT_HUB_ACCESS_TOKEN_STORAGE_KEY } from '@/const';
 
 interface IGitHubAccessDto {
     accessToken: string;
@@ -26,7 +27,8 @@ const GitHubAccessProvider = ({ children }: { children: ReactNode }) => {
 
     const handleSetAccessToken = async (accessToken: string) => {
         setIsLoading(true);
-        const { data, error } = await reqGetGitHubUser({ accessToken });
+        sessionStorage.setItem(GIT_HUB_ACCESS_TOKEN_STORAGE_KEY, accessToken);
+        const { data, error } = await reqGetGitHubUser();
 
         if (data) {
             setGitHubAccessDto({
@@ -34,7 +36,6 @@ const GitHubAccessProvider = ({ children }: { children: ReactNode }) => {
                 userName: data.name,
             });
         }
-        sessionStorage.setItem('gitHubAccessToken', accessToken);
         setIsLoading(false);
     };
 

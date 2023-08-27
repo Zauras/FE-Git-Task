@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useState } from 'react';
 
-import { GitHubAccessContext } from '@/state/githubAcessContext/GithubAccessContext';
+import { GitHubAccessContext } from '@/features/UserPanel/githubAcessContext/GithubAccessContext';
 import ButtonSC from '@/components/Button/ButtonSC.styles';
 import TextInputSC from '@/components/Input/TextInputSC.styles';
 import UserPanelContainerSC from '@/features/UserPanel/styles/UserPanelContainerSC.styles';

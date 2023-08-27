@@ -3,12 +3,12 @@ import Popup from 'reactjs-popup';
 
 const CommonApiErrorPopUp = ({
     isError,
-    removeError,
     statusCode,
+    removeError,
 }: {
-    isError: boolean;
-    removeError: () => void;
-    statusCode: number | null;
+    isError: boolean | undefined;
+    statusCode: number | null | undefined;
+    removeError?: () => void;
 }) => {
     return (
         <Popup open={isError} onClose={removeError} position="center center" closeOnDocumentClick>
