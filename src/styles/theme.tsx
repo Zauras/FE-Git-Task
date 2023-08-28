@@ -16,6 +16,7 @@ const theme: Theme = {
         white: '#ffffff',
 
         accentPrimary: '#1DA1F2',
+        backgroundAccent: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%)',
     },
     bps: {
         sm: '641px',

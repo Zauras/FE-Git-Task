@@ -14,7 +14,7 @@ const PageLayoutSC = styled.div`
     .page-header {
         width: 100%;
         padding: 0.75rem 5rem;
-        background-color: ${(props) => props.theme.colors.accentPrimary};
+        background: ${(props) => props.theme.colors.backgroundAccent};
         color: ${(props) => props.theme.colors.white};
     }
 
@@ -23,8 +23,6 @@ const PageLayoutSC = styled.div`
         flex: 1 0 auto;
         flex-direction: column;
         align-items: center;
-
-        height: 100%;
         margin: 3rem;
     }
 
@@ -33,7 +31,7 @@ const PageLayoutSC = styled.div`
 
         flex-shrink: 0;
 
-        background-color: ${(props) => props.theme.colors.accentPrimary};
+        background: ${(props) => props.theme.colors.backgroundAccent};
         color: ${(props) => props.theme.colors.white};
     }
 `;

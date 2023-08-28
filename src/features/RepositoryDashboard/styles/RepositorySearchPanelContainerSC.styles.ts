@@ -7,6 +7,17 @@ const RepositorySearchPanelContainerSC = styled.div`
     border: 2px solid ${(props) => props.theme.colors.borderGray};
     border-radius: 15px;
 
+    //box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+    //filter: blur(10px);
+
+    :after {
+        //box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+        //filter: blur(10px);
+        background-color: green;
+        box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+        filter: blur(10px);
+    }
+
     table {
         border-top: 2px solid ${(props) => props.theme.colors.borderGray};
     }
