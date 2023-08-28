@@ -1,22 +1,27 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 
 import TextInputSC from '@/components/Input/TextInputSC.styles';
 import ButtonSC from '@/components/Button/ButtonSC.styles';
+import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 
-const RepositorySearchPanel = ({
-    onRepoSearch,
-    onRepoSearchQueryChange,
-}: {
-    onRepoSearch: () => void;
-    onRepoSearchQueryChange: (query: string) => void;
-}) => {
+const RepositorySearchPanel = () => {
+    const { queryRepoList } = useContext(RepositoriesListContext);
+    const [repoSearchKeyword, setRepoSearchKeyword] = useState<string>('');
+
     const handleQueryInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onRepoSearchQueryChange(event.target.value);
+        setRepoSearchKeyword(event.target.value);
+    };
+
+    const handleQueryRepoList = async () => {
+        if (queryRepoList) {
+            await queryRepoList({ repoSearchKeyword });
+        }
     };
 
     return (
         <aside>
             <h3>GitHub Repositories</h3>
+
             <div className="search-panel">
                 <form className="search-form" role="search">
                     <TextInputSC
@@ -32,7 +37,7 @@ const RepositorySearchPanel = ({
                     <div className="sr-only" aria-live="polite"></div>
                 </form>
 
-                <ButtonSC type="submit" onClick={onRepoSearch}>
+                <ButtonSC type="submit" onClick={handleQueryRepoList}>
                     Search
                 </ButtonSC>
             </div>

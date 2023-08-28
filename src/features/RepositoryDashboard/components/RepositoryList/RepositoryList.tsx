@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { IRepoInfoDto } from '@/models/github/repositoryModels';
 import TableSC from '@/components/Table/Table.styles';
+import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
+import RepositoryListItem from '@/features/RepositoryDashboard/components/RepositoryList/RepositoryListItem';
 
-const RepositoryList = ({
-    repoList,
-    onRepoClick,
-}: {
-    repoList: IRepoInfoDto[];
-    onRepoClick: (repo: IRepoInfoDto) => void;
-}) => {
+const RepositoryList = () => {
+    const { repoList } = useContext(RepositoriesListContext);
+
     return (
         <TableSC columnCount={4} isItemsClickable={true}>
             <thead>
@@ -23,14 +20,7 @@ const RepositoryList = ({
 
             <tbody>
                 {repoList.length > 0 ? (
-                    repoList.map((repo, i) => (
-                        <tr key={repo.id} onClick={() => onRepoClick(repo)}>
-                            <td>{i + 1}</td>
-                            <td>{repo.id}</td>
-                            <td align={'center'}>{repo.name}</td>
-                            <td align={'right'}>{repo.stargazers_count}</td>
-                        </tr>
-                    ))
+                    repoList.map((repo, i) => <RepositoryListItem repoDto={repo} i={i} />)
                 ) : (
                     <div className={'no-table-content-container'}>No results</div>
                 )}

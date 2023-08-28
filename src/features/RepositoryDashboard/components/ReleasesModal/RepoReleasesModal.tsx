@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from 'react-modal';
 
-import { IRepoReleasesDto } from '@/models/github/releasesModels';
 import ReleaseContentSC from '@/features/RepositoryDashboard/components/ReleasesModal/styles/ReleaseContentSC.styles';
 import TableSC from '@/components/Table/Table.styles';
 import CloseButtonSC from '@/components/Button/CloseButtonSC.styles';
+import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 
 const customStyles = {
     content: {
@@ -17,13 +17,15 @@ const customStyles = {
     },
 };
 
-const RepoReleasesModal = ({
-    repoReleases,
-    closeModal,
-}: {
-    repoReleases: IRepoReleasesDto[];
-    closeModal: () => void;
-}) => {
+const RepoReleasesModal = () => {
+    const { repoReleases, cleanRepoReleases } = useContext(RepositoriesListContext);
+
+    const handleCloseModal = () => {
+        if (cleanRepoReleases) {
+            cleanRepoReleases();
+        }
+    };
+
     return (
         <Modal
             ariaHideApp={false}
@@ -36,7 +38,7 @@ const RepoReleasesModal = ({
                     <div className="header-label">
                         <h2>Releases</h2>
                     </div>
-                    <CloseButtonSC className="close-action" onClick={closeModal}>
+                    <CloseButtonSC className="close-action" onClick={handleCloseModal}>
                         X
                     </CloseButtonSC>
                 </div>

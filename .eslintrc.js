@@ -6,5 +6,6 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': ['warn'],
         '@typescript-eslint/ban-ts-ignore': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
+        'prettier/prettier': 'warn',
     },
 };

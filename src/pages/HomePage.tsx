@@ -2,7 +2,8 @@ import React from 'react';
 
 import PageLayoutSC from '@/components/PageLayout/PageLayoutSC.styles';
 import RepositoryDashboard from '@/features/RepositoryDashboard/RepositoryDashboard';
-import { GitHubAccessProvider } from '@/state/githubAcessContext/GithubAccessContext';
+import { GitHubAccessProvider } from '@/features/UserPanel/state/githubAcessContext/GithubAccessContext';
+import { RepositoriesListProvider } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 
 const HomePage = () => {
     return (
@@ -13,7 +14,9 @@ const HomePage = () => {
 
             <div className="page-content">
                 <GitHubAccessProvider>
-                    <RepositoryDashboard />
+                    <RepositoriesListProvider>
+                        <RepositoryDashboard />
+                    </RepositoriesListProvider>
                 </GitHubAccessProvider>
             </div>
 
