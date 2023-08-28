@@ -45,7 +45,7 @@ const RepositoriesListProvider = ({ children }: { children: ReactNode }) => {
         const resp = await reqGetGithubRepoSearchByStars({
             searchString: repoSearchKeyword,
         });
-
+        setErrorDto({ errorType: ERepoErrorType.LimitReqError, statusCode: resp.status });
         if (resp.status == 403) {
             setErrorDto({ errorType: ERepoErrorType.LimitReqError, statusCode: resp.status });
         } else if (resp.data) {
