@@ -21,6 +21,7 @@ const RepositorySearchPanel = () => {
     return (
         <aside>
             <h3>GitHub Repositories</h3>
+
             <div className="search-panel">
                 <form className="search-form" role="search">
                     <TextInputSC

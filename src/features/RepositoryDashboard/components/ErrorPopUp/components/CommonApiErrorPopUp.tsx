@@ -11,7 +11,7 @@ const CommonApiErrorPopUp = ({
 }: {
     isError: boolean | undefined;
     statusCode: number | null | undefined;
-    removeError?: () => void;
+    removeError: () => void;
 }) => {
     return (
         <Popup open={isError} onClose={removeError} position="center center" closeOnDocumentClick>

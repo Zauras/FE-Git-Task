@@ -18,7 +18,6 @@ const ErrorPopUp = () => {
             return <LimitReqErrorPopUp isError={true} removeError={removeError} />;
 
         case ERepoErrorType.AnyError:
-        default:
             return (
                 <CommonApiErrorPopUp
                     isError={true}
@@ -26,6 +25,9 @@ const ErrorPopUp = () => {
                     removeError={removeError}
                 />
             );
+
+        default:
+            return null;
     }
 };
 

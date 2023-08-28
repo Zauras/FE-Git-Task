@@ -24,7 +24,7 @@ const RepositoriesListContext = createContext<{
         repoName: string;
     }) => Promise<void>;
     cleanRepoReleases?: () => void;
-    removeError?: () => void;
+    removeError: () => void;
 }>({
     isLoading: false,
     repoList: [],
@@ -45,7 +45,7 @@ const RepositoriesListProvider = ({ children }: { children: ReactNode }) => {
         const resp = await reqGetGithubRepoSearchByStars({
             searchString: repoSearchKeyword,
         });
-        setErrorDto({ errorType: ERepoErrorType.LimitReqError, statusCode: resp.status });
+
         if (resp.status == 403) {
             setErrorDto({ errorType: ERepoErrorType.LimitReqError, statusCode: resp.status });
         } else if (resp.data) {
