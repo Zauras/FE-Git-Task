@@ -1,21 +1,9 @@
 import React, { useContext } from 'react';
-import Modal from 'react-modal';
 
 import ReleaseContentSC from '@/features/RepositoryDashboard/components/ReleasesModal/styles/ReleaseContentSC.styles';
 import TableSC from '@/components/Table/Table.styles';
-import CloseButtonSC from '@/components/Button/CloseButtonSC.styles';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
-
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
+import Modal from '@/components/Modal/Modal';
 
 const RepoReleasesModal = () => {
     const { repoReleases, cleanRepoReleases } = useContext(RepositoriesListContext);
@@ -27,22 +15,8 @@ const RepoReleasesModal = () => {
     };
 
     return (
-        <Modal
-            ariaHideApp={false}
-            isOpen={repoReleases.length > 0}
-            style={customStyles}
-            contentLabel="Example Modal"
-        >
+        <Modal isOpen={repoReleases.length > 0} label="Releases" onClose={handleCloseModal}>
             <ReleaseContentSC>
-                <div className="modal-header">
-                    <div className="header-label">
-                        <h2>Releases</h2>
-                    </div>
-                    <CloseButtonSC className="close-action" onClick={handleCloseModal}>
-                        X
-                    </CloseButtonSC>
-                </div>
-
                 <TableSC columnCount={3}>
                     <thead>
                         <tr>
