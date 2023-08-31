@@ -1,4 +1,5 @@
 import React, { ReactNode, SyntheticEvent, useCallback, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import CloseButtonSC from '@/components/Button/CloseButtonSC.styles';
@@ -11,13 +12,17 @@ const eventStopPropagation = (event: SyntheticEvent) => {
 const Modal = ({
     isOpen,
     onClose,
-    modalTitle = '',
+    afterClose,
     children,
+    modalTitle = '',
+    footerChildren = null,
 }: {
     isOpen: boolean;
     onClose: () => void;
+    afterClose?: () => void;
     modalTitle?: string;
     children: ReactNode;
+    footerChildren?: ReactNode | string | null;
 }) => {
     const closeOnEscKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -29,6 +34,17 @@ const Modal = ({
     );
 
     useEffect(() => {
+        document.body.style.overflow = 'hidden';
+
+        return function cleanup() {
+            document.body.style.overflow = 'unset';
+            if (afterClose) {
+                afterClose();
+            }
+        };
+    }, []);
+
+    useEffect(() => {
         document.body.addEventListener('keydown', closeOnEscKeyDown);
 
         return function cleanup() {
@@ -36,8 +52,8 @@ const Modal = ({
         };
     }, [closeOnEscKeyDown]);
 
-    return (
-        <CSSTransition in={isOpen} unmountOnExit timeout={500}>
+    return ReactDOM.createPortal(
+        <CSSTransition in={isOpen} unmountOnExit timeout={300}>
             <ModalSC className="modal" onClick={onClose}>
                 <div className="modal-content" onClick={eventStopPropagation}>
                     <div className="modal-header">
@@ -52,25 +68,13 @@ const Modal = ({
                         </div>
                     </div>
 
-                    <div className="modal-body">
-                        {/*Contrary to popular belief, Lorem Ipsum is not simply random text. It has*/}
-                        {/*roots in a piece of classical Latin literature from 45 BC, making it over*/}
-                        {/*2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney*/}
-                        {/*College in Virginia, looked up one of the more obscure Latin words,*/}
-                        {/*consectetur, from a Lorem Ipsum passage, and going through the cites of the*/}
-                        {/*word in classical literature, discovered the undoubtable source. Lorem Ipsum*/}
-                        {/*comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum"*/}
-                        {/*(The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a*/}
-                        {/*treatise on the theory of ethics, very popular during the Renaissance. The*/}
-                        {/*first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line*/}
-                        {/*in section 1.10.32.*/}
-                        {children}
-                    </div>
+                    <div className="modal-body">{children}</div>
 
-                    <div className="modal-footer"> FOOTER</div>
+                    <div className="modal-footer">{footerChildren}</div>
                 </div>
             </ModalSC>
-        </CSSTransition>
+        </CSSTransition>,
+        document.getElementById('root') as HTMLElement
     );
 };
 

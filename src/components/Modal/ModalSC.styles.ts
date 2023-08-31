@@ -14,28 +14,24 @@ const ModalSC = styled.div`
 
     background-color: rgba(0, 0, 0, 0.5);
 
-    // Animation base preparation:
-    //opacity: 0;
-    //transition: all 0.3s ease-in-out;
-    //pointer-events: none;
-
     .modal-content {
         z-index: 3;
+        min-height: 40vh;
+        min-width: 10rem;
         max-height: 75vh;
         max-width: 50rem;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
         background-color: ${(props) => props.theme.colors.backgroundPrimary};
         border-radius: 1rem;
 
-        // Animation base preparation:
-        //transform: translateY(200px);
-
-        //.modal-header,
-        //.modal-footer {
-        //    padding: 1rem;
-        //}
-
         .modal-header {
             width: 100%;
+            min-height: 3rem;
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,7 +60,14 @@ const ModalSC = styled.div`
         }
 
         .modal-body {
-            padding: 1rem;
+            width: 100%;
+            height: 100%;
+            margin: 1rem;
+            overflow: scroll;
+        }
+
+        .modal-footer {
+            min-height: 1rem;
         }
     }
 
@@ -80,11 +83,12 @@ const ModalSC = styled.div`
     }
     &.enter-active {
         opacity: 1;
-        transition: all 0.5s;
+        animation-delay: 50ms;
+        transition: all 0.3s;
 
         .modal-content {
             transform: translateX(0);
-            transition: all 0.5s;
+            transition: all 0.3s;
         }
     }
 
@@ -98,7 +102,7 @@ const ModalSC = styled.div`
 
         .modal-content {
             transform: scale(0.9);
-            transition: all 0.5s;
+            transition: all 0.3s;
         }
     }
 `;

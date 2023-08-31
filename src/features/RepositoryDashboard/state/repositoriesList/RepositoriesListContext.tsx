@@ -12,7 +12,7 @@ const RepositoriesListContext = createContext<{
     // Data:
     isLoading: boolean;
     repoList: IRepoInfoDto[];
-    repoReleases: IRepoReleasesDto[];
+    repoReleases: IRepoReleasesDto[] | null;
     // Functions:
     errorDto: IRepoErrorDto | null;
     queryRepoList?: ({ repoSearchKeyword }: { repoSearchKeyword: string }) => Promise<void>;
@@ -28,7 +28,7 @@ const RepositoriesListContext = createContext<{
 }>({
     isLoading: false,
     repoList: [],
-    repoReleases: [],
+    repoReleases: null,
     errorDto: null,
     cleanRepoReleases: () => Promise<void>,
     removeError: () => null,
@@ -37,7 +37,7 @@ const RepositoriesListContext = createContext<{
 const RepositoriesListProvider = ({ children }: { children: ReactNode }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [repoList, setRepoList] = useState<IRepoInfoDto[]>([]);
-    const [repoReleases, setRepoReleases] = useState<IRepoReleasesDto[]>([]);
+    const [repoReleases, setRepoReleases] = useState<IRepoReleasesDto[] | null>(null);
     const [errorDto, setErrorDto] = useState<IRepoErrorDto | null>(null);
 
     const queryRepoList = async ({ repoSearchKeyword }: { repoSearchKeyword: string }) => {
@@ -80,7 +80,7 @@ const RepositoriesListProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const cleanRepoReleases = () => {
-        setRepoReleases([]);
+        setRepoReleases(null);
     };
 
     const removeError = () => {

@@ -1,21 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import ReleaseContentSC from '@/features/RepositoryDashboard/components/ReleasesModal/styles/ReleaseContentSC.styles';
-import TableSC from '@/components/Table/Table.styles';
-import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 import Modal from '@/components/Modal/Modal';
+import TableSC from '@/components/Table/Table.styles';
+import ReleaseContentSC from '@/features/RepositoryDashboard/components/ReleasesModal/styles/ReleaseContentSC.styles';
+import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 
 const RepoReleasesModal = () => {
     const { repoReleases, cleanRepoReleases } = useContext(RepositoriesListContext);
+    const [isOpen, setIsOpen] = useState(false);
 
-    const handleCloseModal = () => {
+    const handleOnClose = () => {
+        setIsOpen(false);
+    };
+    const handleAfterClose = () => {
         if (cleanRepoReleases) {
             cleanRepoReleases();
         }
     };
 
+    useEffect(() => {
+        if (repoReleases != null) {
+            setIsOpen(true);
+        }
+    }, [repoReleases]);
+
     return (
-        <Modal isOpen={repoReleases.length > 0} modalTitle="Releases" onClose={handleCloseModal}>
+        <Modal
+            isOpen={isOpen}
+            modalTitle="Releases"
+            onClose={handleOnClose}
+            afterClose={handleAfterClose}
+        >
             <ReleaseContentSC>
                 <TableSC columnCount={3}>
                     <thead>
@@ -27,7 +42,7 @@ const RepoReleasesModal = () => {
                     </thead>
 
                     <tbody>
-                        {repoReleases.length > 0 ? (
+                        {repoReleases && repoReleases.length > 0 ? (
                             repoReleases.map((releaseDto) => (
                                 <tr key={releaseDto.name}>
                                     <td align={'left'}>{releaseDto.name}</td>
