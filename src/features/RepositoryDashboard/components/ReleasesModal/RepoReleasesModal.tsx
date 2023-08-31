@@ -15,7 +15,7 @@ const RepoReleasesModal = () => {
     };
 
     return (
-        <Modal isOpen={repoReleases.length > 0} label="Releases" onClose={handleCloseModal}>
+        <Modal isOpen={repoReleases.length > 0} modalTitle="Releases" onClose={handleCloseModal}>
             <ReleaseContentSC>
                 <TableSC columnCount={3}>
                     <thead>

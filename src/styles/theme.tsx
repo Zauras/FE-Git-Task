@@ -10,13 +10,12 @@ const theme: Theme = {
 
         borderGray: '#D3D7DC',
 
-        lightTextGray: '#7A7E88',
+        textLightGray: '#7A7E88',
         textGray: '#4E5157',
 
-        white: '#ffffff',
-
-        accentPrimary: '#1DA1F2',
-        backgroundAccent: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%)',
+        backgroundPrimary: '#ffffff',
+        accentPrimarySolid: '#1DA1F2',
+        accentPrimaryGradient: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%)',
     },
     bps: {
         sm: '641px',
