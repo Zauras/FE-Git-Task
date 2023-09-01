@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useState } from 'react';
 
 import TextInputSC from '@/components/Input/TextInputSC.styles';
-import ButtonSC from '@/components/Button/ButtonSC.styles';
+import ButtonSC from '@/components/Button/ButtonCommon/Button.styles';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 
 const RepositorySearchPanel = () => {

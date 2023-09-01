@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 
 import PopUpSC from '@/features/RepositoryDashboard/components/ErrorPopUp/PopUpSC.styles';
-import CloseButtonSC from '@/components/Button/CloseButtonSC.styles';
+import CloseButtonSC from '@/components/Button/ButtonIcon/CloseButtonSC.styles';
 
 const CommonApiErrorPopUp = ({
     isError,

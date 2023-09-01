@@ -2,7 +2,7 @@ import React, { ReactNode, SyntheticEvent, useCallback, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import CloseButtonSC from '@/components/Button/CloseButtonSC.styles';
+import CloseButtonSC from '@/components/Button/ButtonIcon/CloseButtonSC.styles';
 import ModalSC from '@/components/Modal/ModalSC.styles';
 
 const eventStopPropagation = (event: SyntheticEvent) => {
