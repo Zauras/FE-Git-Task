@@ -4,7 +4,7 @@ import Button from '@/components/Button/ButtonCommon/Button';
 import { EButtonSize } from '@/components/Button/ButtonCommon/Button.models';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-const meta = {
+const buttonMeta = {
     title: 'Example/Button',
     component: Button,
     parameters: {
@@ -19,34 +19,35 @@ const meta = {
     },
 } satisfies Meta<typeof Button>;
 
-export default meta;
-
-type Story = StoryObj<typeof meta>;
+type ButtonStory = StoryObj<typeof buttonMeta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary: Story = {
+const Primary: ButtonStory = {
     args: {
         primary: true,
         children: 'Button',
     },
 };
 
-export const Secondary: Story = {
+const Secondary: ButtonStory = {
     args: {
         children: 'Button',
     },
 };
 
-export const Large: Story = {
+const Large: ButtonStory = {
     args: {
         size: EButtonSize.Large,
         children: 'Button',
     },
 };
 
-export const Small: Story = {
+const Small: ButtonStory = {
     args: {
         size: EButtonSize.Small,
         children: 'Button',
     },
 };
+
+export default buttonMeta;
+export { Primary, Secondary, Large, Small };

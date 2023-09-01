@@ -1,9 +1,10 @@
-import React, { ReactNode, SyntheticEvent, useCallback, useEffect } from 'react';
+import React, { SyntheticEvent, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
 import CloseButtonSC from '@/components/Button/ButtonIcon/CloseButtonSC.styles';
-import ModalSC from '@/components/Modal/ModalSC.styles';
+import ModalSC from '@/components/Modal/Modal.styles';
+import { IModalProps } from '@/components/Modal/Modal.models';
 
 const eventStopPropagation = (event: SyntheticEvent) => {
     event.stopPropagation();
@@ -16,14 +17,7 @@ const Modal = ({
     children,
     modalTitle = '',
     footerChildren = null,
-}: {
-    isOpen: boolean;
-    onClose: () => void;
-    afterClose?: () => void;
-    modalTitle?: string;
-    children: ReactNode;
-    footerChildren?: ReactNode | string | null;
-}) => {
+}: IModalProps) => {
     const closeOnEscKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if ((e.key || e.key) === 'Escape') {
