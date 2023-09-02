@@ -77,9 +77,6 @@
             "react-app/jest"
         ]
     },
-    "overrides": {
-        "@babel/plugin-transform-block-scoping": "7.18.9"
-    },
     "browserslist": {
         "production": [
             ">0.2%",

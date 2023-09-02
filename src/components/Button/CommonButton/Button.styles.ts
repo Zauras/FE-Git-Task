@@ -1,21 +1,36 @@
 import styled from '@emotion/styled';
 import { css, Theme } from '@emotion/react';
 
-import { EButtonSize, IButtonProps } from '@/components/Button/ButtonCommon/Button.models';
+import { EButtonSize, IButtonProps } from '@/components/Button/CommonButton/Button.models';
 
-const getVariantStyles = ({ theme, primary = false }: { theme: Theme; primary?: boolean }) =>
-    primary
+const getVariantStyles = ({ theme, isPrimary = false }: { theme: Theme; isPrimary?: boolean }) => {
+    const {
+        colors: { textMain, textInvert, primary, primaryHover, secondary },
+    } = theme;
+
+    return isPrimary
         ? css`
-              color: ${theme.colors.textInvert};
-              background-color: ${theme.colors.primary};
-              border: 2px solid ${theme.colors.primary};
+              color: ${textInvert};
+              background-color: ${primary};
+              border: 2px solid ${primary};
+
+              :hover {
+                  background-color: ${primaryHover};
+                  box-shadow: ${primary} 0px 0px 8px 2px inset;
+              }
           `
         : css`
-              color: ${theme.colors.textMain};
-              background-color: ${theme.colors.secondary};
-              border: 2px solid ${theme.colors.primary};
-              box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+              color: ${textMain};
+              background-color: ${secondary};
+              border: 2px solid ${primary};
+              box-shadow: ${primary} 0px 0px 3px 1px inset;
+
+              :hover {
+                  border-color: ${primaryHover};
+                  box-shadow: ${primaryHover} 0px 0px 6px 1px inset;
+              }
           `;
+};
 
 const getSizeStyles = ({
     theme,
@@ -24,26 +39,24 @@ const getSizeStyles = ({
     theme: Theme;
     size?: EButtonSize;
 }) => {
-    console.log('Button SC props::', theme.fontSize, size);
-
     switch (size) {
         case EButtonSize.Small: {
             return css`
                 font-size: ${theme.fontSize.sm};
-                padding: 10px 16px;
+                padding: 0.625rem 1rem;
             `;
         }
         case EButtonSize.Large: {
             return css`
                 font-size: ${theme.fontSize.lg};
-                padding: 12px 24px;
+                padding: 0.75rem 1.5rem;
             `;
         }
         case EButtonSize.Medium:
         default: {
             return css`
                 font-size: ${theme.fontSize.md};
-                padding: 11px 20px;
+                padding: 0.688rem 1.25rem;
             `;
         }
     }

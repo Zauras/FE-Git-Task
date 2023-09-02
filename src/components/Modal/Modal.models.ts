@@ -6,7 +6,7 @@ interface IModalProps {
     afterClose?: () => void;
     modalTitle?: string;
     footerChildren?: ReactNode | string | null;
-    children: ReactNode;
+    children: ReactNode | string;
 }
 
 export type { IModalProps };

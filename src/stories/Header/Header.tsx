@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from '@/components/Button/ButtonCommon/Button';
-import { EButtonSize } from '@/components/Button/ButtonCommon/Button.models';
+import Button from '@/components/Button/CommonButton/Button';
+import { EButtonSize } from '@/components/Button/CommonButton/Button.models';
 
 import './header.css';
 
@@ -57,7 +57,7 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
                             Log in
                         </Button>
 
-                        <Button primary size={EButtonSize.Small} onClick={onCreateAccount}>
+                        <Button isPrimary size={EButtonSize.Small} onClick={onCreateAccount}>
                             Sign up
                         </Button>
                     </>

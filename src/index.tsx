@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ThemeProvider } from '@emotion/react';
 
-import './index.css';
-import reportWebVitals from './reportWebVitals';
 import HomePage from '@/pages/HomePage';
-import theme from '@/styles/theme';
+import StyleProvider from '@/styles/StyleProvider';
+
+import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 const router = createBrowserRouter([
     {
@@ -19,9 +19,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
+        <StyleProvider>
             <RouterProvider router={router} />
-        </ThemeProvider>
+        </StyleProvider>
     </React.StrictMode>
 );
 

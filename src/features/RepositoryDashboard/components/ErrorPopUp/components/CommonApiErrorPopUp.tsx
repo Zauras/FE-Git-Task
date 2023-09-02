@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 
 import PopUpSC from '@/features/RepositoryDashboard/components/ErrorPopUp/PopUpSC.styles';
-import CloseButtonSC from '@/components/Button/ButtonIcon/CloseButtonSC.styles';
+import IconButtonSC from '@/components/Button/IconButton/IconButton.styles';
 
 const CommonApiErrorPopUp = ({
     isError,
@@ -16,9 +16,9 @@ const CommonApiErrorPopUp = ({
     return (
         <Popup open={isError} onClose={removeError} position="center center" closeOnDocumentClick>
             <PopUpSC>
-                <CloseButtonSC className="close-button" onClick={removeError}>
+                <IconButtonSC className="close-button" onClick={removeError}>
                     X
-                </CloseButtonSC>
+                </IconButtonSC>
                 <h2>ERROR{statusCode && `: ${statusCode}`}</h2>
                 <div>Something went wrong.</div>
             </PopUpSC>

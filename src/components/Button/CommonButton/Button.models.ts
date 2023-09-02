@@ -1,14 +1,10 @@
 import { ReactNode } from 'react';
 
-enum EButtonSize {
-    Small = 'small',
-    Medium = 'medium',
-    Large = 'large',
-}
+import { EButtonSize } from '../Button.models';
 
 interface IButtonProps {
     children: string | ReactNode;
-    primary?: boolean;
+    isPrimary?: boolean;
     backgroundColor?: string;
     size?: EButtonSize;
     onClick?: () => void;

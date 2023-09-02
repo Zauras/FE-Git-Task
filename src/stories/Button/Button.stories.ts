@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@/components/Button/ButtonCommon/Button';
-import { EButtonSize } from '@/components/Button/ButtonCommon/Button.models';
+import Button from '@/components/Button/CommonButton/Button';
+import { EButtonSize } from '@/components/Button/CommonButton/Button.models';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const buttonMeta = {
-    title: 'Example/Button',
+    title: 'Example/Button/TextButton',
     component: Button,
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
@@ -24,7 +24,7 @@ type ButtonStory = StoryObj<typeof buttonMeta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 const Primary: ButtonStory = {
     args: {
-        primary: true,
+        isPrimary: true,
         children: 'Button',
     },
 };

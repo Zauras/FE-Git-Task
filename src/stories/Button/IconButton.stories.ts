@@ -1,11 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import Modal from '@/components/Modal/Modal';
+import { EButtonSize } from '@/components/Button/CommonButton/Button.models';
+import IconButton from '@/components/Button/IconButton/IconButton';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-const modalMeta = {
-    title: 'Example/Modal',
-    component: Modal,
+const buttonMeta = {
+    title: 'Example/Button/IconButton',
+    component: IconButton,
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
         layout: 'centered',
@@ -14,19 +15,26 @@ const modalMeta = {
     tags: ['autodocs'],
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {},
-} satisfies Meta<typeof Modal>;
+} satisfies Meta<typeof IconButton>;
 
-type ModalStory = StoryObj<typeof modalMeta>;
+type ButtonStory = StoryObj<typeof buttonMeta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-const Primary: ModalStory = {
+const Main: ButtonStory = {
+    args: {},
+};
+
+const Large: ButtonStory = {
     args: {
-        isOpen: true,
-        modalTitle: 'Modal Title',
-        footerChildren: 'Modal Footer content',
-        children: 'Modal content',
+        size: EButtonSize.Large,
     },
 };
 
-export default modalMeta;
-export { Primary };
+const Small: ButtonStory = {
+    args: {
+        size: EButtonSize.Small,
+    },
+};
+
+export default buttonMeta;
+export { Main, Large, Small };

@@ -1,10 +1,9 @@
 import React from 'react';
 
-import ButtonSC from '@/components/Button/ButtonCommon/Button.styles';
-import { IButtonProps } from '@/components/Button/ButtonCommon/Button.models';
+import ButtonSC from '@/components/Button/CommonButton/Button.styles';
+import { IButtonProps } from '@/components/Button/CommonButton/Button.models';
 
 const Button = ({ children, ...restProps }: IButtonProps) => {
-    console.log('Button props:', restProps);
 
     return (
         <ButtonSC className="button-sc" {...restProps}>

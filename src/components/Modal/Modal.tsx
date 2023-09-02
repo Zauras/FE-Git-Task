@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import CloseButtonSC from '@/components/Button/ButtonIcon/CloseButtonSC.styles';
+import IconButtonSC from '@/components/Button/IconButton/IconButton.styles';
 import ModalSC from '@/components/Modal/Modal.styles';
 import { IModalProps } from '@/components/Modal/Modal.models';
 
@@ -50,21 +50,21 @@ const Modal = ({
         <CSSTransition in={isOpen} unmountOnExit timeout={300}>
             <ModalSC className="modal" onClick={onClose}>
                 <div className="modal-content" onClick={eventStopPropagation}>
-                    <div className="modal-header">
+                    <header className="modal-header">
                         <div className="modal-title-container">
                             <h2>{modalTitle}</h2>
                         </div>
 
-                        <div className="modal-header-close-action-container">
-                            <CloseButtonSC className="close-action" onClick={onClose}>
+                        <div className="modal-header-action-container">
+                            <IconButtonSC className="close-action" onClick={onClose}>
                                 X
-                            </CloseButtonSC>
+                            </IconButtonSC>
                         </div>
-                    </div>
+                    </header>
 
-                    <div className="modal-body">{children}</div>
+                    <section className="modal-body">{children}</section>
 
-                    <div className="modal-footer">{footerChildren}</div>
+                    {footerChildren && <footer className="modal-footer">{footerChildren}</footer>}
                 </div>
             </ModalSC>
         </CSSTransition>,

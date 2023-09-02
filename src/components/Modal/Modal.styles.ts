@@ -16,19 +16,25 @@ const ModalSC = styled.div`
 
     .modal-content {
         z-index: 3;
-        min-height: 40vh;
-        min-width: 10rem;
-        max-height: 75vh;
-        max-width: 50rem;
+        position: relative;
+        min-height: 15rem;
+        min-width: 18rem;
+        max-height: 45rem;
+        max-width: 40rem;
+
+        margin: 3rem;
+        padding: 3rem 3rem 3rem 4rem;
 
         display: flex;
         align-items: center;
         flex-direction: column;
+        gap: 2rem;
 
-        background-color: ${(props) => props.theme.colors.backgroundPrimary};
+        background-color: ${({ theme }) => theme.colors.backgroundPrimary};
         border-radius: 1rem;
 
         .modal-header {
+            height: 100%;
             width: 100%;
             min-height: 3rem;
 
@@ -39,14 +45,14 @@ const ModalSC = styled.div`
             .modal-title-container {
                 text-align: center;
                 width: 100%;
+
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
 
-            .modal-header-close-action-container {
+            .modal-header-action-container {
                 position: relative;
-                text-align: end;
 
                 display: flex;
                 justify-content: center;
@@ -54,7 +60,8 @@ const ModalSC = styled.div`
 
                 .close-action {
                     position: absolute;
-                    margin-left: -4rem;
+                    left: -0.75rem;
+                    top: -3rem;
                 }
             }
         }
@@ -62,12 +69,20 @@ const ModalSC = styled.div`
         .modal-body {
             width: 100%;
             height: 100%;
-            margin: 1rem;
-            overflow: scroll;
+            overflow-y: auto;
+            padding-right: 1.5rem;
         }
 
         .modal-footer {
-            min-height: 1rem;
+            width: 100%;
+
+            bottom: 0;
+            margin-top: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
         }
     }
 
@@ -103,6 +118,23 @@ const ModalSC = styled.div`
         .modal-content {
             transform: scale(0.9);
             transition: all 0.3s;
+        }
+    }
+
+    // =========== Debug ==========
+    &.debug-blocks {
+        .modal-content {
+            border: 1px solid violet;
+
+            .modal-header {
+                border: 1px solid blue;
+            }
+            .modal-body {
+                border: 1px solid red;
+            }
+            .modal-footer {
+                border: 1px solid orange;
+            }
         }
     }
 `;
