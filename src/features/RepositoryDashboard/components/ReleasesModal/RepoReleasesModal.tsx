@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import Modal from '@/components/Modal/Modal';
-import TableSC from '@/components/Table/Table.styles';
+import TableSC from '@/components/Table/styles/Table.styles';
 import ReleaseContentSC from '@/features/RepositoryDashboard/components/ReleasesModal/styles/ReleaseContentSC.styles';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 
@@ -32,29 +32,29 @@ const RepoReleasesModal = () => {
             afterClose={handleAfterClose}
         >
             <ReleaseContentSC>
-                <TableSC columnCount={3}>
-                    <thead>
-                        <tr>
-                            <th align={'left'}>Release</th>
-                            <th align={'left'}>Published</th>
-                            <th>Author</th>
-                        </tr>
-                    </thead>
+                {/*<TableSC>*/}
+                {/*    <thead>*/}
+                {/*        <tr>*/}
+                {/*            <th align={'left'}>Release</th>*/}
+                {/*            <th align={'left'}>Published</th>*/}
+                {/*            <th>Author</th>*/}
+                {/*        </tr>*/}
+                {/*    </thead>*/}
 
-                    <tbody>
-                        {repoReleases && repoReleases.length > 0 ? (
-                            repoReleases.map((releaseDto) => (
-                                <tr key={releaseDto.name}>
-                                    <td align={'left'}>{releaseDto.name}</td>
-                                    <td align={'left'}>{releaseDto.published_at}</td>
-                                    <td align={'right'}>{releaseDto.author.login}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <div className={'no-table-content-container'}>No results</div>
-                        )}
-                    </tbody>
-                </TableSC>
+                {/*    <tbody>*/}
+                {/*        {repoReleases && repoReleases.length > 0 ? (*/}
+                {/*            repoReleases.map((releaseDto) => (*/}
+                {/*                <tr key={releaseDto.name}>*/}
+                {/*                    <td align={'left'}>{releaseDto.name}</td>*/}
+                {/*                    <td align={'left'}>{releaseDto.published_at}</td>*/}
+                {/*                    <td align={'right'}>{releaseDto.author.login}</td>*/}
+                {/*                </tr>*/}
+                {/*            ))*/}
+                {/*        ) : (*/}
+                {/*            <div className={'no-table-content-container'}>No results</div>*/}
+                {/*        )}*/}
+                {/*    </tbody>*/}
+                {/*</TableSC>*/}
             </ReleaseContentSC>
         </Modal>
     );
