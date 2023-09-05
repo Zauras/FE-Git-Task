@@ -79,12 +79,14 @@ interface ITableRowProps<DtoType> {
     dataItem: DtoType;
     rowIndex: number;
     onRowClick?: () => void;
+    isRowCountEnabled: boolean;
 }
 
 interface ITableProps {
     columnConfigList: ITableColumnConfig[];
     rowData: object[];
     onRowClick?: () => void;
+    isRowCountEnabled?: boolean;
 }
 
 export type { ITableColumnConfig, ITableDataItemDto, ITableProps, ITableRowProps };

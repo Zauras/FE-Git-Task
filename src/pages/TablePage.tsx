@@ -38,7 +38,6 @@ const testData = [
 ];
 
 const columnConfigList: ITableColumnConfig[] = [
-    { columnId: '0', label: 'Nr', dataField: 'nr', columnDataType: EColumnType.Nr },
     { columnId: '1', label: 'Game', dataField: 'product', columnDataType: EColumnType.String },
     { columnId: '2', label: 'Price', dataField: 'price', columnDataType: EColumnType.Number },
     {

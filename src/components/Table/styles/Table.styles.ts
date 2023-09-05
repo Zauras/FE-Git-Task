@@ -52,7 +52,7 @@ const TableSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
         border: 0;
     }
 
-    tr:nth-child(even) td {
+    tr:nth-of-type(even) td {
         background: ${({ theme }) => theme.colors.backgroundDim};
     }
 `;

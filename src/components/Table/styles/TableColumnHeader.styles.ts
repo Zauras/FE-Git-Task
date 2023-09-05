@@ -10,8 +10,6 @@ const getCellContentAlign = (columnConfig: ITableColumnConfig): SerializedStyles
 
     const alignment = align || getColumnAlignByDataType(columnDataType);
 
-    console.log('alignment', alignment, columnConfig.label);
-
     return css`
         text-align: ${alignment};
     `;
