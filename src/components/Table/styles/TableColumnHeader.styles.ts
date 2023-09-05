@@ -23,7 +23,7 @@ const TableColumnHeaderSC = styled.th<{ columnConfig: ITableColumnConfig }>`
     position: sticky;
     top: 0;
 
-    font-weight: normal;
+    font-weight: 600;
     font-size: 1.1rem;
 
     background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
