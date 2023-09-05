@@ -2,7 +2,7 @@ import { Theme } from '@emotion/react';
 
 const theme: Theme = {
     colors: {
-        primary: 'rgb(32, 178, 253)',//'#20b2fd', //'rgb(32, 178, 253)', //'#20b2fd', // rgb(32, 178, 253)
+        primary: 'rgb(32, 178, 253)', //'#20b2fd', //'rgb(32, 178, 253)', //'#20b2fd', // rgb(32, 178, 253)
         primaryHover: '#128bce',
         primaryDisabled: '#6b73b1',
 
@@ -13,14 +13,16 @@ const theme: Theme = {
         warning: '#ffc107',
         error: '#dc3545',
 
-        border: '#D3D7DC',
+        border: '#c4c7cc',
 
         textHeader: '#000',
         textMain: '#4E5157',
         textInvert: '#fff',
         textSup: '#7A7E88',
 
+        backgroundDim: '#e3e7ec',
         backgroundPrimary: '#ffffff',
+
         accentPrimarySolid: '#1DA1F2',
         accentPrimaryGradient: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%)',
     },

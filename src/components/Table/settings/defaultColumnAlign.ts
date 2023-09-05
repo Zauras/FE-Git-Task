@@ -1,7 +1,3 @@
-import {
-    columnWidthByDataType,
-    columnWidthBySizeType,
-} from '@/components/Table/settings/defaultColumnSizes';
 import { EColumnAlign, EColumnType } from '@/components/Table/Table.models';
 
 const defaultColumnAlignByDataType: Record<EColumnType, EColumnAlign> = {
@@ -15,6 +11,6 @@ const defaultColumnAlignByDataType: Record<EColumnType, EColumnAlign> = {
 };
 
 const getColumnAlignByDataType = (columnDataType: EColumnType | undefined | null): string =>
-    columnWidthByDataType[columnDataType || EColumnType.Unknown];
+    defaultColumnAlignByDataType[columnDataType || EColumnType.Unknown];
 
 export { getColumnAlignByDataType };

@@ -10,7 +10,7 @@ const getGridTemplate = ({
     columnConfigList: ITableColumnConfig[];
 }): SerializedStyles => {
     const gridTemplateColumn = columnConfigList.reduce((acc, columnConfig) => {
-        const { columnDataType, customStylingDto } = columnConfig;
+        const { columnDataType } = columnConfig;
         const columnWidth = getColumnSizeByDataType(columnDataType);
 
         return `${acc} ${columnWidth}`;
@@ -25,7 +25,12 @@ const getGridTemplate = ({
 const TableSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
     display: grid;
     border-collapse: collapse;
-    min-width: 100%;
+    border: 2px solid ${({ theme }) => theme.colors.border};
+    border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+
+    overflow: hidden;
 
     ${(props) => getGridTemplate(props)}
 
@@ -43,28 +48,12 @@ const TableSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
         white-space: nowrap;
     }
 
-    th {
-        position: sticky;
-        top: 0;
-        background: #6c7ae0;
-        text-align: left;
-        font-weight: normal;
-        font-size: 1.1rem;
-        color: white;
-    }
-
     th:last-child {
         border: 0;
     }
 
-    td {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        color: #808080;
-    }
-
     tr:nth-child(even) td {
-        background: #f8f6ff;
+        background: ${({ theme }) => theme.colors.backgroundDim};
     }
 `;
 

@@ -3,6 +3,7 @@ import React from 'react';
 import TableSC from '@/components/Table/styles/Table.styles';
 import { ITableColumnConfig, ITableProps, ITableRowProps } from '@/components/Table/Table.models';
 import TableDataCellSC from '@/components/Table/styles/TableDataCell.styles';
+import TableColumnHeaderSC from '@/components/Table/styles/TableColumnHeader.styles';
 
 const TableDataCell = ({
     dataField,
@@ -37,7 +38,9 @@ const Table = ({ columnConfigList, rowData, onRowClick }: ITableProps) => {
             <thead>
                 <tr>
                     {columnConfigList.map((columnConfig) => (
-                        <th>{columnConfig.label}</th>
+                        <TableColumnHeaderSC columnConfig={columnConfig}>
+                            {columnConfig.label}
+                        </TableColumnHeaderSC>
                     ))}
                 </tr>
             </thead>

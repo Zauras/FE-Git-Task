@@ -10,17 +10,24 @@ const getCellContentAlign = (columnConfig: ITableColumnConfig): SerializedStyles
 
     const alignment = align || getColumnAlignByDataType(columnDataType);
 
+    console.log('alignment', alignment, columnConfig.label);
+
     return css`
         text-align: ${alignment};
     `;
 };
 
-const TableDataCellSC = styled.td<{ columnConfig: ITableColumnConfig }>`
+const TableColumnHeaderSC = styled.th<{ columnConfig: ITableColumnConfig }>`
     ${({ columnConfig }) => getCellContentAlign(columnConfig)}
 
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: ${({ theme }) => theme.colors.textMain};
+    position: sticky;
+    top: 0;
+
+    font-weight: normal;
+    font-size: 1.1rem;
+
+    background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
+    color: ${({ theme }) => theme.colors.textInvert};
 `;
 
-export default TableDataCellSC;
+export default TableColumnHeaderSC;

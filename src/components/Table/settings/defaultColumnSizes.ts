@@ -13,7 +13,7 @@ const defaultColumnSizeByDataType: Record<EColumnType, string> = {
     [EColumnType.Number]: columnWidthBySizeType[EColumnSize.Sm],
     [EColumnType.Date]: columnWidthBySizeType[EColumnSize.Mid],
     [EColumnType.DateTime]: columnWidthBySizeType[EColumnSize.Lg],
-    [EColumnType.String]: columnWidthBySizeType[EColumnSize.Mid],
+    [EColumnType.String]: columnWidthBySizeType[EColumnSize.Lg],
     [EColumnType.Text]: columnWidthBySizeType[EColumnSize.Xl],
     [EColumnType.Unknown]: columnWidthBySizeType[EColumnSize.Mid],
 };
