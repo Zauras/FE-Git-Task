@@ -1,13 +1,19 @@
 import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
 
 import { getDataFieldValue } from '@/components/Table/utils';
-import { TColumnId, TDataFieldAccessor, TTableData } from '@/components/Table/Table.models';
-import { TableSettingsContext } from '@/components/Table/state/TableSettingsContext';
+import {
+    IColumnSortConfig,
+    TColumnId,
+    TDataFieldAccessor,
+    TDefaultSortingConfig,
+    TTableData,
+} from '@/components/Table/Table.models';
+import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
 
 const TableStateContext = createContext<{
     tableData: any[];
-    tableSorting: Record<TColumnId, TColumnSortState>;
-    setSorting: (columnSortDto: TColumnSortDto) => void;
+    tableSorting: Record<TColumnId, IColumnSortState>;
+    setSorting: (columnSortDto: IColumnSortDto) => void;
 }>({
     tableData: [],
     tableSorting: {},
@@ -19,16 +25,14 @@ enum EColumnSorting {
     Desc = ' desc',
 }
 
-type TTableSorting = Record<TColumnId, TColumnSortState>;
+type TTableSorting = Record<TColumnId, IColumnSortState>;
 
-interface TColumnSortDto {
-    columnId: string;
+interface IColumnSortDto extends IColumnSortConfig {
     dataAccessor: TDataFieldAccessor;
-    sorting: EColumnSorting | null;
 }
 
-interface TColumnSortState extends TColumnSortDto {
-    sortOrderIndex: number;
+interface IColumnSortState extends IColumnSortDto {
+    sortActionTimestamp: number;
 }
 
 const getSortedTableData = ({
@@ -40,7 +44,7 @@ const getSortedTableData = ({
 }) => {
     const data = [...tableData];
     const tableSortingList = Object.values(tableSorting).sort((aSort, bSort) =>
-        aSort.sortOrderIndex > bSort.sortOrderIndex ? 1 : -1
+        aSort.sortActionTimestamp > bSort.sortActionTimestamp ? 1 : -1
     );
 
     tableSortingList.forEach(({ columnId, sorting }) =>
@@ -63,22 +67,35 @@ const getSortedTableData = ({
 
 const TableStateProvider = ({
     initData = [],
-    initSorting = [],
+    defaultSorting = [],
     children,
 }: {
     initData: any[];
-    initSorting?: TColumnSortDto[];
+    defaultSorting?: TDefaultSortingConfig;
     children: ReactNode;
 }) => {
     const { columnConfigList } = useContext(TableSettingsContext);
 
-    const [tableSorting, setTableSorting] = useState<Record<TColumnId, TColumnSortState>>(() =>
-        initSorting.reduce(
+    const [tableSorting, setTableSorting] = useState<Record<TColumnId, IColumnSortState>>(() =>
+        defaultSorting.reduce(
             (acc, columnSortDto, i) => {
-                acc[columnSortDto.columnId] = { ...columnSortDto, sortOrderIndex: i };
+                const columnConfig = columnConfigList.find(
+                    (columnConfig) => columnSortDto.columnId === columnConfig.columnId
+                );
+
+                if (!columnConfig) {
+                    return acc;
+                }
+
+                acc[columnSortDto.columnId] = {
+                    ...columnSortDto,
+                    dataAccessor: columnConfig.dataAccessor,
+                    sortActionTimestamp: Date.now() + i,
+                };
+
                 return acc;
             },
-            {} as Record<string, TColumnSortState>
+            {} as Record<string, IColumnSortState>
         )
     );
 
@@ -93,24 +110,30 @@ const TableStateProvider = ({
             );
         });
         return initTableData;
-        // return getSortedTableData({
-        //     tableData: initTableData,
-        //     tableSorting,
-        // });
     });
 
+    console.log('init', tableSorting);
+
     const handleSetSorting = useCallback(
-        (sortingDto: TColumnSortDto) => {
+        (sortingDto: IColumnSortDto) => {
             const { columnId, dataAccessor, sorting } = sortingDto;
+
+            console.log('==================================================');
+            console.log('sortingDto', sortingDto);
+            console.log('before', tableSorting);
 
             if (!sorting) {
                 const { [columnId]: _, ...newTableSorting } = tableSorting;
                 setTableSorting(newTableSorting);
             } else {
-                const sortOrderIndex = Object.keys(tableSorting).length;
+                const sortActionTimestamp = Date.now();
+                console.log('after', {
+                    ...tableSorting,
+                    [columnId]: { columnId, dataAccessor, sorting, sortActionTimestamp },
+                });
                 setTableSorting({
                     ...tableSorting,
-                    [columnId]: { columnId, dataAccessor, sorting, sortOrderIndex },
+                    [columnId]: { columnId, dataAccessor, sorting, sortActionTimestamp },
                 });
             }
         },

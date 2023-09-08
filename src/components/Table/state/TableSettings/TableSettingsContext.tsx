@@ -5,6 +5,7 @@ import {
     EPositionInRow,
     ITableColumnConfig,
     ITableInjectableColumnConfig,
+    TColumnId,
 } from '@/components/Table/Table.models';
 
 const rowCountColumnConfig: ITableInjectableColumnConfig = {

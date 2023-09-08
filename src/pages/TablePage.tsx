@@ -2,7 +2,8 @@ import React from 'react';
 
 import PageLayoutSC from '@/components/PageLayout/PageLayoutSC.styles';
 import Table from '@/components/Table/Table';
-import { EColumnType, ITableColumnConfig } from '@/components/Table/Table.models';
+import { EColumnType, ITableColumnConfig, ITableConfig } from '@/components/Table/Table.models';
+import { EColumnSorting } from '@/components/Table/state/TableState/TableStateContext';
 
 const testData = [
     {
@@ -38,27 +39,41 @@ const testData = [
 ];
 
 const columnConfigList: ITableColumnConfig[] = [
-    { columnId: '1', label: 'Game', dataAccessor: 'product', columnDataType: EColumnType.String },
     {
-        columnId: '2',
+        columnId: 'game',
+        label: 'Game',
+        dataAccessor: 'product',
+        columnDataType: EColumnType.String,
+    },
+    {
+        columnId: 'price',
         label: 'Price',
         dataAccessor: 'price',
         columnDataType: EColumnType.Number,
         isSortable: true,
     },
     {
-        columnId: '3',
+        columnId: 'release_date',
         label: 'Release Date',
         dataAccessor: 'releaseDate',
         columnDataType: EColumnType.Date,
+        isSortable: true,
     },
     {
-        columnId: '4',
+        columnId: 'info_update',
         label: 'Info Update',
         dataAccessor: 'updated',
         columnDataType: EColumnType.DateTime,
     },
 ];
+
+const tableConfig: ITableConfig = {
+    isMultiSortEnabled: true,
+    isMultiSortingSwitchRender: true,
+    defaultSorting: [{ columnId: 'price', sorting: EColumnSorting.Desc }],
+    isRowCountEnabled: true,
+    isSearchEnabled: true,
+};
 
 const TablePage = () => {
     return (
@@ -68,7 +83,11 @@ const TablePage = () => {
             </header>
 
             <div className="page-content">
-                <Table columnConfigList={columnConfigList} rowData={testData} />
+                <Table
+                    columnConfigList={columnConfigList}
+                    tableConfig={tableConfig}
+                    rowData={testData}
+                />
             </div>
 
             <footer className="page-footer" />

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import tableRow from '@/components/Table/components/TableRow';
-import { string } from 'prop-types';
+
+import { EColumnSorting } from '@/components/Table/state/TableState/TableStateContext';
 
 enum EColumnAlign {
     Left = 'left',
@@ -68,8 +68,7 @@ interface ITableRowProps<DtoType> {
 interface ITableProps {
     columnConfigList: ITableColumnConfig[];
     rowData: object[];
-    onRowClick?: () => void;
-    isRowCountEnabled?: boolean;
+    tableConfig: ITableConfig;
 }
 
 type TDataFieldAccessFn = <T>(rowData: T) => string | number | null;
@@ -79,7 +78,25 @@ type TColumnId = string;
 type TTableRowData = Record<TColumnId, string | number | null>;
 type TTableData = TTableRowData[];
 
+interface IColumnSortConfig {
+    columnId: string;
+    sorting: EColumnSorting | null;
+}
+
+type TDefaultSortingConfig = IColumnSortConfig[];
+
+interface ITableConfig {
+    defaultSorting?: TDefaultSortingConfig;
+    isMultiSortEnabled?: boolean;
+    isMultiSortingSwitchRender?: boolean;
+    isRowCountEnabled?: boolean;
+    isSearchEnabled?: boolean;
+}
+
 export type {
+    TDefaultSortingConfig,
+    ITableConfig,
+    IColumnSortConfig,
     ITableColumnConfig,
     ITableDataItemDto,
     ITableProps,

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TableDataCellSC from '@/components/Table/styles/TableDataCell.styles';
-import { rowCountColumnConfig } from '@/components/Table/state/TableSettingsContext';
+import { rowCountColumnConfig } from '@/components/Table/state/TableSettings/TableSettingsContext';
 
 const TableInjectedDataCell = ({ columnConfig, rowIndex }: any) => {
 

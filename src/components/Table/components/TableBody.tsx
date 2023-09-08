@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import TableRow from '@/components/Table/components/TableRow';
-import { TableStateContext } from '@/components/Table/state/TableStateContext';
+import { TableStateContext } from '@/components/Table/state/TableState/TableStateContext';
 
 const TableBody = () => {
     const { tableData } = useContext(TableStateContext);

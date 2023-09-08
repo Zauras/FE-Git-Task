@@ -1,8 +1,8 @@
 import React, { ReactNode, useContext, useMemo } from 'react';
 
 import TableColumnHeaderSC from '@/components/Table/styles/TableColumnHeader.styles';
-import { TableSettingsContext } from '@/components/Table/state/TableSettingsContext';
-import { EColumnSorting, TableStateContext } from '@/components/Table/state/TableStateContext';
+import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
+import { EColumnSorting, TableStateContext } from '@/components/Table/state/TableState/TableStateContext';
 import { ITableColumnConfig, TDataFieldAccessor } from '@/components/Table/Table.models';
 import SortButtonSC from '@/components/Table/components/TableHead/styles/SortButton.styles';
 

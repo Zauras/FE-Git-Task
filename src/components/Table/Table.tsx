@@ -1,14 +1,14 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext, useMemo } from 'react';
 
-import { ITableProps } from '@/components/Table/Table.models';
+import { ITableProps, TDefaultSortingConfig } from '@/components/Table/Table.models';
 import TableSC from '@/components/Table/styles/Table.styles';
 import TableHead from '@/components/Table/components/TableHead/TableHead';
 import TableBody from '@/components/Table/components/TableBody';
 import {
     TableSettingsContext,
     TableSettingsProvider,
-} from '@/components/Table/state/TableSettingsContext';
-import { TableStateProvider } from '@/components/Table/state/TableStateContext';
+} from '@/components/Table/state/TableSettings/TableSettingsContext';
+import { TableStateProvider } from '@/components/Table/state/TableState/TableStateContext';
 
 const TableComponent = ({ children }: { children: ReactNode }) => {
     const { fullColumnConfigList } = useContext(TableSettingsContext);
@@ -16,15 +16,29 @@ const TableComponent = ({ children }: { children: ReactNode }) => {
     return <TableSC columnConfigList={fullColumnConfigList}>{children}</TableSC>;
 };
 
-const Table = (tableProps: ITableProps) => {
-    const { columnConfigList, isRowCountEnabled = true, rowData } = tableProps;
+const defaultTableConfig = {
+    defaultSorting: [],
+    isMultiSortEnabled: true,
+    isMultiSortingSwitchRender: true,
+    isRowCountEnabled: true,
+    isSearchEnabled: true,
+};
+
+const Table = ({ columnConfigList, rowData, tableConfig }: ITableProps) => {
+    const tableConfigWithDefault = useMemo(
+        () => ({ ...defaultTableConfig, ...tableConfig }),
+        [tableConfig]
+    );
 
     return (
         <TableSettingsProvider
             initColumnConfigList={columnConfigList}
-            initIsRowCountEnabled={isRowCountEnabled}
+            initIsRowCountEnabled={tableConfigWithDefault.isRowCountEnabled}
         >
-            <TableStateProvider initData={rowData}>
+            <TableStateProvider
+                initData={rowData}
+                defaultSorting={tableConfigWithDefault.defaultSorting}
+            >
                 <TableComponent>
                     <TableHead />
 

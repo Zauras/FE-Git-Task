@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import TableDataCell from '@/components/Table/components/TableDataCell';
-import { TableSettingsContext } from '@/components/Table/state/TableSettingsContext';
+import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
 import TableInjectedDataCell from '@/components/Table/components/TableInjectedDataCell';
 
 const TableRow = ({ dataItem, rowIndex }: { dataItem: any; rowIndex: number }) => {
