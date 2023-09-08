@@ -21,11 +21,31 @@ const TableColumnHeaderSC = styled.th<{ columnConfig: ITableColumnConfig }>`
     position: sticky;
     top: 0;
 
-    font-weight: 600;
-    font-size: 1.1rem;
-
     background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
-    color: ${({ theme }) => theme.colors.textInvert};
+
+    .table-header-label {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: ${({ theme }) => theme.colors.textInvert};
+    }
+
+    .sort-btn-wrapper {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        gap: 0.5rem;
+
+        border: none;
+        background-color: inherit;
+
+        cursor: pointer;
+
+        .sort-svg {
+            width: 1rem;
+            height: 1rem;
+            fill: ${({ theme }) => theme.colors.textInvert};
+        }
+    }
 `;
 
 export default TableColumnHeaderSC;

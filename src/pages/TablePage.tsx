@@ -38,18 +38,24 @@ const testData = [
 ];
 
 const columnConfigList: ITableColumnConfig[] = [
-    { columnId: '1', label: 'Game', dataField: 'product', columnDataType: EColumnType.String },
-    { columnId: '2', label: 'Price', dataField: 'price', columnDataType: EColumnType.Number },
+    { columnId: '1', label: 'Game', dataAccessor: 'product', columnDataType: EColumnType.String },
+    {
+        columnId: '2',
+        label: 'Price',
+        dataAccessor: 'price',
+        columnDataType: EColumnType.Number,
+        isSortable: true,
+    },
     {
         columnId: '3',
         label: 'Release Date',
-        dataField: 'releaseDate',
+        dataAccessor: 'releaseDate',
         columnDataType: EColumnType.Date,
     },
     {
         columnId: '4',
         label: 'Info Update',
-        dataField: 'updated',
+        dataAccessor: 'updated',
         columnDataType: EColumnType.DateTime,
     },
 ];

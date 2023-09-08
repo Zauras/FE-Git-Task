@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import TableRow from '@/components/Table/components/TableRow';
-import { ITableProps } from '@/components/Table/Table.models';
+import { TableStateContext } from '@/components/Table/state/TableStateContext';
 
-const TableBody = ({
-    rowData,
-    columnConfigList,
-    onRowClick,
-    isRowCountEnabled = true,
-}: ITableProps) => {
-    if (rowData.length == 0) {
+const TableBody = () => {
+    const { tableData } = useContext(TableStateContext);
+
+    if (tableData.length == 0) {
         return (
             <tbody>
                 <div className="no-table-content-container">No results</div>
@@ -19,15 +16,8 @@ const TableBody = ({
 
     return (
         <tbody>
-            {rowData.map((dataItem, i) => (
-                <TableRow
-                    key={JSON.stringify(dataItem)}
-                    isRowCountEnabled={Boolean(isRowCountEnabled)}
-                    columnConfigList={columnConfigList}
-                    dataItem={dataItem}
-                    rowIndex={i}
-                    onRowClick={onRowClick}
-                />
+            {tableData.map((dataItem, i) => (
+                <TableRow key={JSON.stringify(dataItem)} dataItem={dataItem} rowIndex={i} />
             ))}
         </tbody>
     );
