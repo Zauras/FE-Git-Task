@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const TextInputSC = styled.input<{ minWidth?: string }>`
-    border: 1px solid ${(props) => props.theme.colors.borderGray};
+    border: 1px solid ${(props) => props.theme.colors.border};
     border-radius: 5px;
     padding: 0.5rem 0.5rem;
 

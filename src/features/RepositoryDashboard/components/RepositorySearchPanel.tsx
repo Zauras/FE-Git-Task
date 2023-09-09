@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useContext, useState } from 'react';
 
-import TextInputSC from '@/components/Input/TextInputSC.styles';
+import TextInputSC from '@/components/Input/TextInput/TextInput.styles';
 import ButtonSC from '@/components/Button/CommonButton/Button.styles';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 

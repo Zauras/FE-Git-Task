@@ -43,20 +43,20 @@ const getSizeStyles = ({
         case EButtonSize.Small: {
             return css`
                 font-size: ${theme.fontSize.sm};
-                padding: 0.625rem 1rem;
+                padding: 0.25rem 0.5rem;
             `;
         }
         case EButtonSize.Large: {
             return css`
                 font-size: ${theme.fontSize.lg};
-                padding: 0.75rem 1.5rem;
+                padding: 0.85rem 1.5rem;
             `;
         }
         case EButtonSize.Medium:
         default: {
             return css`
                 font-size: ${theme.fontSize.md};
-                padding: 0.688rem 1.25rem;
+                padding: 0.7rem 1rem;
             `;
         }
     }

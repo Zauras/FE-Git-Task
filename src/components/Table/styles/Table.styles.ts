@@ -22,17 +22,11 @@ const getGridTemplate = ({
     `;
 };
 
-const TableSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
+const TableGridSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
     display: grid;
-    border-collapse: collapse;
-    border: 2px solid ${({ theme }) => theme.colors.border};
-    border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -webkit-border-radius: 1rem;
+    ${(props) => getGridTemplate(props)}
 
     overflow: hidden;
-
-    ${(props) => getGridTemplate(props)}
 
     thead,
     tbody,
@@ -57,4 +51,4 @@ const TableSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
     }
 `;
 
-export default TableSC;
+export default TableGridSC;

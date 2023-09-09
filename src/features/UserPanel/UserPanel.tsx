@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 
 import { GitHubAccessContext } from '@/features/UserPanel/state/githubAcessContext/GithubAccessContext';
 import ButtonSC from '@/components/Button/CommonButton/Button.styles';
-import TextInputSC from '@/components/Input/TextInputSC.styles';
+import TextInputSC from '@/components/Input/TextInput/TextInput.styles';
 import UserPanelContainerSC from '@/features/UserPanel/styles/UserPanelContainerSC.styles';
 import LoadingScreen from '../RepositoryDashboard/components/LoadingScreen/LoadingScreen';
 
