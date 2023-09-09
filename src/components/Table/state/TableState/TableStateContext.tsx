@@ -14,10 +14,12 @@ const TableStateContext = createContext<{
     tableData: any[];
     tableSorting: Record<TColumnId, IColumnSortState>;
     setSorting: (columnSortDto: IColumnSortDto) => void;
+    resetSorting: () => void;
 }>({
     tableData: [],
     tableSorting: {},
     setSorting: (columnSortDto) => null,
+    resetSorting: () => null,
 });
 
 enum EColumnSorting {
@@ -76,28 +78,33 @@ const TableStateProvider = ({
 }) => {
     const { columnConfigList } = useContext(TableSettingsContext);
 
-    const [tableSorting, setTableSorting] = useState<Record<TColumnId, IColumnSortState>>(() =>
-        defaultSorting.reduce(
-            (acc, columnSortDto, i) => {
-                const columnConfig = columnConfigList.find(
-                    (columnConfig) => columnSortDto.columnId === columnConfig.columnId
-                );
+    const defaultTableSorting = useMemo(
+        () =>
+            defaultSorting.reduce(
+                (acc, columnSortDto, i) => {
+                    const columnConfig = columnConfigList.find(
+                        (columnConfig) => columnSortDto.columnId === columnConfig.columnId
+                    );
 
-                if (!columnConfig) {
+                    if (!columnConfig) {
+                        return acc;
+                    }
+
+                    acc[columnSortDto.columnId] = {
+                        ...columnSortDto,
+                        dataAccessor: columnConfig.dataAccessor,
+                        sortActionTimestamp: Date.now() + i,
+                    };
+
                     return acc;
-                }
-
-                acc[columnSortDto.columnId] = {
-                    ...columnSortDto,
-                    dataAccessor: columnConfig.dataAccessor,
-                    sortActionTimestamp: Date.now() + i,
-                };
-
-                return acc;
-            },
-            {} as Record<string, IColumnSortState>
-        )
+                },
+                {} as Record<string, IColumnSortState>
+            ),
+        [defaultSorting]
     );
+
+    const [tableSorting, setTableSorting] =
+        useState<Record<TColumnId, IColumnSortState>>(defaultTableSorting);
 
     const [tableData, setTableData] = useState(() => {
         const initTableData = initData.map((dataRow) => {
@@ -144,12 +151,17 @@ const TableStateProvider = ({
         return getSortedTableData({ tableData, tableSorting });
     }, [tableData, tableSorting]);
 
+    const resetSortingToDefault = useCallback(() => {
+        setTableSorting(defaultTableSorting);
+    }, [defaultTableSorting]);
+
     return (
         <TableStateContext.Provider
             value={{
                 tableData: aggrTableData,
                 tableSorting,
                 setSorting: handleSetSorting,
+                resetSorting: resetSortingToDefault,
             }}
         >
             {children}

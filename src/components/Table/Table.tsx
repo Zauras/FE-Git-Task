@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useMemo } from 'react';
+import React, { ReactNode, useContext } from 'react';
 
 import { ITableProps } from '@/components/Table/Table.models';
 import TableGridSC from '@/components/Table/styles/Table.styles';
@@ -18,29 +18,13 @@ const TableGrid = ({ children }: { children: ReactNode }) => {
     return <TableGridSC columnConfigList={fullColumnConfigList}>{children}</TableGridSC>;
 };
 
-const defaultTableConfig = {
-    defaultSorting: [],
-    isMultiSortEnabled: true,
-    isMultiSortingSwitchRender: true,
-    isRowCountEnabled: true,
-    isSearchEnabled: true,
-};
-
 const Table = ({ columnConfigList, rowData, tableConfig }: ITableProps) => {
-    const tableConfigWithDefault = useMemo(
-        () => ({ ...defaultTableConfig, ...tableConfig }),
-        [tableConfig]
-    );
-
     return (
         <TableSettingsProvider
             initColumnConfigList={columnConfigList}
-            initIsRowCountEnabled={tableConfigWithDefault.isRowCountEnabled}
+            initTableConfig={tableConfig}
         >
-            <TableStateProvider
-                initData={rowData}
-                defaultSorting={tableConfigWithDefault.defaultSorting}
-            >
+            <TableStateProvider initData={rowData}>
                 <TableContainerSC>
                     <TableControlPanel />
 

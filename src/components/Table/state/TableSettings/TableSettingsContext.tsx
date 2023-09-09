@@ -4,9 +4,19 @@ import {
     EColumnType,
     EPositionInRow,
     ITableColumnConfig,
+    ITableConfig,
     ITableInjectableColumnConfig,
-    TColumnId,
 } from '@/components/Table/Table.models';
+
+const defaultTableConfig = {
+    isMultiSortEnabled: true,
+    isRowCountEnabled: true,
+    isSearchEnabled: true,
+    // static settings:
+    defaultSorting: [],
+    isTableSettingChangeable: true,
+    isMultiSortSettingsEnabled: true,
+};
 
 const rowCountColumnConfig: ITableInjectableColumnConfig = {
     columnId: 'rowCount',
@@ -24,6 +34,10 @@ const TableSettingsContext = createContext<{
     autoGenColumnConfigList: ITableColumnConfig[];
     fullColumnConfigList: ITableColumnConfig[];
     isRowCountEnabled: boolean;
+    isMultiSortEnabled: boolean;
+    isMultiSortSettingsEnabled: boolean;
+    isTableSettingChangeable: boolean;
+    isSearchEnabled: boolean;
     // Functions:
     setColumnConfigList: (newColumnConfigList: ITableColumnConfig[]) => void;
     setIsRowCountEnabled: (isRowCountEnabled: boolean) => void;
@@ -33,6 +47,10 @@ const TableSettingsContext = createContext<{
     autoGenColumnConfigList: [],
     fullColumnConfigList: [],
     isRowCountEnabled: true,
+    isMultiSortEnabled: true,
+    isMultiSortSettingsEnabled: true,
+    isTableSettingChangeable: true,
+    isSearchEnabled: true,
     // Functions:
     setColumnConfigList: (newColumnConfigList) => null,
     setIsRowCountEnabled: (isRowCountEnabled) => null,
@@ -40,17 +58,24 @@ const TableSettingsContext = createContext<{
 
 const TableSettingsProvider = ({
     initColumnConfigList = [],
-    initIsRowCountEnabled = true,
+    initTableConfig = {},
     children,
 }: {
     initColumnConfigList: ITableColumnConfig[];
-    initIsRowCountEnabled: boolean;
+    initTableConfig: ITableConfig;
     children: ReactNode;
 }) => {
+    const defaultTableSettings = useMemo(
+        () => ({ ...defaultTableConfig, ...initTableConfig }),
+        [initTableConfig]
+    );
+
     const [columnConfigList, setColumnConfigList] =
         useState<ITableColumnConfig[]>(initColumnConfigList);
 
-    const [isRowCountEnabled, setIsRowCountEnabled] = useState<boolean>(initIsRowCountEnabled);
+    const [isRowCountEnabled, setIsRowCountEnabled] = useState<boolean>(
+        defaultTableSettings.isRowCountEnabled
+    );
 
     const injectedColumnConfigList: ITableInjectableColumnConfig[] = useMemo(() => {
         const configList = [] as ITableInjectableColumnConfig[];
@@ -80,17 +105,30 @@ const TableSettingsProvider = ({
         return fullColumnConfigList;
     }, [injectedColumnConfigList, columnConfigList]);
 
+    const [isMultiSortEnabled, setIsMultiSortEnabled] = useState<boolean>(
+        defaultTableSettings.isMultiSortEnabled
+    );
+
+    const [isSearchEnabled, setIsSearchEnabled] = useState<boolean>(
+        defaultTableSettings.isSearchEnabled
+    );
+
     return (
         <TableSettingsContext.Provider
             value={{
-                // Data:
+                // Dynamic Settings:
                 columnConfigList: columnConfigList,
                 autoGenColumnConfigList: injectedColumnConfigList,
                 fullColumnConfigList: fullColumnConfigList,
                 isRowCountEnabled,
+                isMultiSortEnabled,
+                isSearchEnabled,
                 // Functions:
                 setColumnConfigList,
                 setIsRowCountEnabled,
+                // Static Settings:
+                isMultiSortSettingsEnabled: defaultTableSettings.isMultiSortSettingsEnabled,
+                isTableSettingChangeable: defaultTableSettings.isTableSettingChangeable,
             }}
         >
             {children}
