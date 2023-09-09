@@ -8,6 +8,14 @@ import { TableStateContext } from '@/components/Table/state/TableState/TableStat
 import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
 import Modal from '@/components/Modal/Modal';
 import SwitchCheckbox from '@/components/Input/Checkbox/Switch/SwitchCheckbox';
+import styled from '@emotion/styled';
+
+const TableSettingsControlFormSC = styled.form`
+    width: 30rem;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+`;
 
 const TableSettingsControlModal = ({
     isOpen,
@@ -21,9 +29,16 @@ const TableSettingsControlModal = ({
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
-            <SwitchCheckbox label="Enable multi-sorting" isChecked={isMultiSortEnabled} />
-            <SwitchCheckbox label="Enable search" isChecked={isSearchEnabled} />
-            <SwitchCheckbox label="Show row counting" isChecked={isRowCountEnabled} />
+            <TableSettingsControlFormSC>
+                <label>Enable multi-sorting</label>
+                <SwitchCheckbox isChecked={isMultiSortEnabled} />
+
+                <label>Enable search</label>
+                <SwitchCheckbox isChecked={isSearchEnabled} />
+
+                <label>Enable multi-sorting</label>
+                <SwitchCheckbox isChecked={isRowCountEnabled} />
+            </TableSettingsControlFormSC>
         </Modal>
     );
 };
