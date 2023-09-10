@@ -76,7 +76,7 @@ const TableStateProvider = ({
     defaultSorting?: TDefaultSortingConfig;
     children: ReactNode;
 }) => {
-    const { columnConfigList } = useContext(TableSettingsContext);
+    const { columnConfigList, isMultiSortEnabled } = useContext(TableSettingsContext);
 
     const defaultTableSorting = useMemo(
         () =>
@@ -103,8 +103,7 @@ const TableStateProvider = ({
         [defaultSorting]
     );
 
-    const [tableSorting, setTableSorting] =
-        useState<Record<TColumnId, IColumnSortState>>(defaultTableSorting);
+    const [tableSorting, setTableSorting] = useState<TTableSorting>(defaultTableSorting);
 
     const [tableData, setTableData] = useState(() => {
         const initTableData = initData.map((dataRow) => {
@@ -122,16 +121,29 @@ const TableStateProvider = ({
     const handleSetSorting = useCallback(
         (sortingDto: IColumnSortDto) => {
             const { columnId, dataAccessor, sorting } = sortingDto;
-
             if (!sorting) {
-                const { [columnId]: _, ...newTableSorting } = tableSorting;
+                let newTableSorting: TTableSorting = {};
+
+                if (isMultiSortEnabled) {
+                    newTableSorting = { ...tableSorting };
+                    delete newTableSorting[columnId];
+                }
+
                 setTableSorting(newTableSorting);
             } else {
                 const sortActionTimestamp = Date.now();
-                setTableSorting({
-                    ...tableSorting,
+                let newTableSorting: TTableSorting = {
                     [columnId]: { columnId, dataAccessor, sorting, sortActionTimestamp },
-                });
+                };
+
+                if (isMultiSortEnabled) {
+                    newTableSorting = {
+                        ...tableSorting,
+                        ...newTableSorting,
+                    };
+                }
+
+                setTableSorting(newTableSorting);
             }
         },
         [tableSorting]
