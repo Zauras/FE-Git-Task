@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 import TextInputSC from '@/components/Input/TextInput/TextInput.styles';
 
@@ -9,7 +9,7 @@ const Input = ({
 }: {
     value?: string | undefined;
     placeholder?: string | undefined;
-    onChange?: (e: SyntheticEvent) => void;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }) => {
     return <TextInputSC value={value} placeholder={placeholder} onChange={onChange} />;
 };

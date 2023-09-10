@@ -21,6 +21,10 @@ const TableDataCellSC = styled.td<{ columnConfig: ITableColumnConfig }>`
     padding-top: 10px;
     padding-bottom: 10px;
     color: ${({ theme }) => theme.colors.textMain};
+
+    .search-value-in-text {
+        background-color: ${({ theme }) => theme.colors.textBackgroundHighlight};
+    }
 `;
 
 export default TableDataCellSC;

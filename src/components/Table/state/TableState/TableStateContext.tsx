@@ -1,4 +1,12 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
+import {
+    createContext,
+    ReactNode,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
 import { getDataFieldValue } from '@/components/Table/utils';
 import {
@@ -12,14 +20,18 @@ import { TableSettingsContext } from '@/components/Table/state/TableSettings/Tab
 
 const TableStateContext = createContext<{
     tableData: any[];
+    tableSearchValue: string;
     tableSorting: Record<TColumnId, IColumnSortState>;
     setSorting: (columnSortDto: IColumnSortDto) => void;
     resetSorting: () => void;
+    setTableSearchValue: (keyword: string) => void;
 }>({
     tableData: [],
     tableSorting: {},
+    tableSearchValue: '',
     setSorting: (columnSortDto) => null,
     resetSorting: () => null,
+    setTableSearchValue: (keyword: string) => null,
 });
 
 enum EColumnSorting {
@@ -37,13 +49,32 @@ interface IColumnSortState extends IColumnSortDto {
     sortActionTimestamp: number;
 }
 
+const getFilteredTableData = ({
+    tableData,
+    filterKeyword,
+}: {
+    tableData: TTableData;
+    filterKeyword: string;
+}): TTableData => {
+    const lowerCaseFilterString = filterKeyword.toLowerCase();
+
+    return tableData.filter((rowDto) => {
+        for (const dataValue of Object.values(rowDto)) {
+            if (String(dataValue).toLowerCase().includes(lowerCaseFilterString)) {
+                return true;
+            }
+        }
+        return false;
+    });
+};
+
 const getSortedTableData = ({
     tableData,
     tableSorting,
 }: {
     tableData: TTableData;
     tableSorting: TTableSorting;
-}) => {
+}): TTableData => {
     const data = [...tableData];
     const tableSortingList = Object.values(tableSorting).sort((aSort, bSort) =>
         aSort.sortActionTimestamp > bSort.sortActionTimestamp ? 1 : -1
@@ -149,9 +180,19 @@ const TableStateProvider = ({
         [tableSorting]
     );
 
-    const aggrTableData = useMemo(() => {
-        return getSortedTableData({ tableData, tableSorting });
-    }, [tableData, tableSorting]);
+    const [aggrTableData, setAggrTableData] = useState(tableData);
+
+    const [tableSearchStr, setTableSearchStr] = useState<string>('');
+
+    useEffect(() => {
+        const sortedData = getSortedTableData({ tableData, tableSorting });
+        setAggrTableData(sortedData);
+    }, [tableSorting]);
+
+    useEffect(() => {
+        const sortedData = getFilteredTableData({ tableData, filterKeyword: tableSearchStr });
+        setAggrTableData(sortedData);
+    }, [tableSearchStr]);
 
     const resetSortingToDefault = useCallback(() => {
         setTableSorting(defaultTableSorting);
@@ -164,6 +205,8 @@ const TableStateProvider = ({
                 tableSorting,
                 setSorting: handleSetSorting,
                 resetSorting: resetSortingToDefault,
+                tableSearchValue: tableSearchStr,
+                setTableSearchValue: setTableSearchStr,
             }}
         >
             {children}

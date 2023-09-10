@@ -19,6 +19,7 @@ const theme: Theme = {
         textMain: '#4E5157',
         textInvert: '#fff',
         textSup: '#7A7E88',
+        textBackgroundHighlight: '#FF9E30',
 
         backgroundDisabled: '#ccc',
         backgroundDim: '#e3e7ec',

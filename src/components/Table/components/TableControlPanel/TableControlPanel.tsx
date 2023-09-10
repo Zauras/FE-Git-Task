@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useCallback, useContext, useState } from 'react';
 import styled from '@emotion/styled';
 
 import TableControlPanelSC from '@/components/Table/components/TableControlPanel/TableControlPanel.styles';
@@ -31,7 +31,7 @@ const TableSettingsControlModal = ({
         toggleIsRowCountEnabled,
         toggleIsMultiSortEnabled,
         toggleIsSearchEnabled,
-        resetAllSettings
+        resetAllSettings,
     } = useContext(TableSettingsContext);
 
     return (
@@ -73,6 +73,25 @@ const TableSettingsControl = () => {
     );
 };
 
+const TableSearchControl = () => {
+    const { tableSearchValue, setTableSearchValue } = useContext(TableStateContext);
+
+    const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setTableSearchValue(event.target.value);
+    };
+
+    return (
+        <div className="table-search-control">
+            <Input
+                placeholder="Search"
+                value={tableSearchValue}
+                onChange={handleSearchInputChange}
+            />
+            <Button size={EButtonSize.Small}>Search</Button>
+        </div>
+    );
+};
+
 const TableControlPanel = () => {
     const { isMultiSortEnabled, isSearchEnabled, isTableSettingChangeable } =
         useContext(TableSettingsContext);
@@ -80,12 +99,7 @@ const TableControlPanel = () => {
 
     return (
         <TableControlPanelSC>
-            {isSearchEnabled && (
-                <div className="table-search-control">
-                    <Input placeholder="Search" />
-                    <Button size={EButtonSize.Small}>Search</Button>
-                </div>
-            )}
+            {isSearchEnabled && <TableSearchControl />}
 
             {isMultiSortEnabled && (
                 <div className="table-sorting-control">
