@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 
 import {
     EColumnType,
@@ -39,8 +39,10 @@ const TableSettingsContext = createContext<{
     isTableSettingChangeable: boolean;
     isSearchEnabled: boolean;
     // Functions:
-    setColumnConfigList: (newColumnConfigList: ITableColumnConfig[]) => void;
-    setIsRowCountEnabled: (isRowCountEnabled: boolean) => void;
+    toggleIsSearchEnabled: () => void;
+    toggleIsMultiSortEnabled: () => void;
+    toggleIsRowCountEnabled: () => void;
+    resetAllSettings: () => void;
 }>({
     // Data:
     columnConfigList: [],
@@ -52,8 +54,10 @@ const TableSettingsContext = createContext<{
     isTableSettingChangeable: true,
     isSearchEnabled: true,
     // Functions:
-    setColumnConfigList: (newColumnConfigList) => null,
-    setIsRowCountEnabled: (isRowCountEnabled) => null,
+    toggleIsSearchEnabled: () => null,
+    toggleIsMultiSortEnabled: () => null,
+    toggleIsRowCountEnabled: () => null,
+    resetAllSettings: () => null,
 });
 
 const TableSettingsProvider = ({
@@ -70,13 +74,23 @@ const TableSettingsProvider = ({
         [initTableConfig]
     );
 
-    const [columnConfigList, setColumnConfigList] =
-        useState<ITableColumnConfig[]>(initColumnConfigList);
+    const columnConfigList = useMemo(() => initColumnConfigList, []);
+
+    // Settings State:
 
     const [isRowCountEnabled, setIsRowCountEnabled] = useState<boolean>(
         defaultTableSettings.isRowCountEnabled
     );
 
+    const [isMultiSortEnabled, setIsMultiSortEnabled] = useState<boolean>(
+        defaultTableSettings.isMultiSortEnabled
+    );
+
+    const [isSearchEnabled, setIsSearchEnabled] = useState<boolean>(
+        defaultTableSettings.isSearchEnabled
+    );
+
+    // Data Aggregation:
     const injectedColumnConfigList: ITableInjectableColumnConfig[] = useMemo(() => {
         const configList = [] as ITableInjectableColumnConfig[];
 
@@ -105,28 +119,41 @@ const TableSettingsProvider = ({
         return fullColumnConfigList;
     }, [injectedColumnConfigList, columnConfigList]);
 
-    const [isMultiSortEnabled, setIsMultiSortEnabled] = useState<boolean>(
-        defaultTableSettings.isMultiSortEnabled
-    );
+    // Action Handlers:
+    const toggleIsSearchEnabled = useCallback(() => {
+        setIsSearchEnabled(!isSearchEnabled);
+    }, [isSearchEnabled]);
 
-    const [isSearchEnabled, setIsSearchEnabled] = useState<boolean>(
-        defaultTableSettings.isSearchEnabled
-    );
+    const toggleIsRowCountEnabled = useCallback(() => {
+        setIsRowCountEnabled(!isRowCountEnabled);
+    }, [isRowCountEnabled]);
+
+    const toggleIsMultiSortEnabled = useCallback(() => {
+        setIsMultiSortEnabled(!isMultiSortEnabled);
+    }, [isMultiSortEnabled]);
+
+    const resetAllSettings = useCallback(() => {
+        setIsSearchEnabled(defaultTableSettings.isSearchEnabled);
+        setIsRowCountEnabled(defaultTableSettings.isRowCountEnabled);
+        setIsMultiSortEnabled(defaultTableSettings.isMultiSortEnabled);
+    }, []);
 
     return (
         <TableSettingsContext.Provider
             value={{
                 // Dynamic Settings:
-                columnConfigList: columnConfigList,
                 autoGenColumnConfigList: injectedColumnConfigList,
                 fullColumnConfigList: fullColumnConfigList,
                 isRowCountEnabled,
                 isMultiSortEnabled,
                 isSearchEnabled,
-                // Functions:
-                setColumnConfigList,
-                setIsRowCountEnabled,
+                // Action Handler Functions:
+                toggleIsSearchEnabled,
+                toggleIsRowCountEnabled,
+                toggleIsMultiSortEnabled,
+                resetAllSettings,
                 // Static Settings:
+                columnConfigList,
                 isMultiSortSettingsEnabled: defaultTableSettings.isMultiSortSettingsEnabled,
                 isTableSettingChangeable: defaultTableSettings.isTableSettingChangeable,
             }}

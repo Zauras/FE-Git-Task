@@ -10,7 +10,6 @@ const TableDataCell = ({
     dataField: any;
     columnConfig: ITableColumnConfig;
 }) => {
-    // console.log('render:', dataField);
     return <TableDataCellSC columnConfig={columnConfig}>{dataField}</TableDataCellSC>;
 };
 

@@ -1,12 +1,15 @@
 import SwitchCheckboxSC from '@/components/Input/Checkbox/Switch/SwitchCheckbox.styles';
 import { ECheckboxSize } from '@/components/Input/Checkbox/Checkbox.models';
+import { SyntheticEvent } from 'react';
 
 const SwitchCheckbox = ({
     isChecked,
+    onChange,
     label = '',
     size = ECheckboxSize.Medium,
 }: {
     isChecked: boolean;
+    onChange?: (e: SyntheticEvent) => void;
     label?: string;
     size?: ECheckboxSize;
 }) => {
@@ -15,7 +18,7 @@ const SwitchCheckbox = ({
             <span className="checkbox-label">{label}</span>
 
             <label className="switch">
-                <input type="checkbox" />
+                <input type="checkbox" checked={isChecked} onChange={onChange} />
                 <span className="slider"></span>
                 <span className="labels" data-on="ON" data-off="OFF"></span>
             </label>

@@ -89,7 +89,7 @@ const TableHead = () => {
         <thead>
             <tr>
                 {fullColumnConfigList.map((columnConfig) => (
-                    <TableColumnHeader columnConfig={columnConfig} />
+                    <TableColumnHeader key={columnConfig.columnId} columnConfig={columnConfig} />
                 ))}
             </tr>
         </thead>

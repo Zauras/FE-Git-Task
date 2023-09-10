@@ -119,25 +119,15 @@ const TableStateProvider = ({
         return initTableData;
     });
 
-    console.log('init', tableSorting);
-
     const handleSetSorting = useCallback(
         (sortingDto: IColumnSortDto) => {
             const { columnId, dataAccessor, sorting } = sortingDto;
-
-            console.log('==================================================');
-            console.log('sortingDto', sortingDto);
-            console.log('before', tableSorting);
 
             if (!sorting) {
                 const { [columnId]: _, ...newTableSorting } = tableSorting;
                 setTableSorting(newTableSorting);
             } else {
                 const sortActionTimestamp = Date.now();
-                console.log('after', {
-                    ...tableSorting,
-                    [columnId]: { columnId, dataAccessor, sorting, sortActionTimestamp },
-                });
                 setTableSorting({
                     ...tableSorting,
                     [columnId]: { columnId, dataAccessor, sorting, sortActionTimestamp },

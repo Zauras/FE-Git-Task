@@ -1,4 +1,5 @@
 import { useCallback, useContext, useState } from 'react';
+import styled from '@emotion/styled';
 
 import TableControlPanelSC from '@/components/Table/components/TableControlPanel/TableControlPanel.styles';
 import Button from '@/components/Button/CommonButton/Button';
@@ -8,7 +9,6 @@ import { TableStateContext } from '@/components/Table/state/TableState/TableStat
 import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
 import Modal from '@/components/Modal/Modal';
 import SwitchCheckbox from '@/components/Input/Checkbox/Switch/SwitchCheckbox';
-import styled from '@emotion/styled';
 
 const TableSettingsControlFormSC = styled.form`
     width: 30rem;
@@ -24,20 +24,32 @@ const TableSettingsControlModal = ({
     isOpen: boolean;
     onClose: () => void;
 }) => {
-    const { isRowCountEnabled, isMultiSortEnabled, isSearchEnabled } =
-        useContext(TableSettingsContext);
+    const {
+        isSearchEnabled,
+        isMultiSortEnabled,
+        isRowCountEnabled,
+        toggleIsRowCountEnabled,
+        toggleIsMultiSortEnabled,
+        toggleIsSearchEnabled,
+        resetAllSettings
+    } = useContext(TableSettingsContext);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <TableSettingsControlFormSC>
-                <label>Enable multi-sorting</label>
-                <SwitchCheckbox isChecked={isMultiSortEnabled} />
-
                 <label>Enable search</label>
-                <SwitchCheckbox isChecked={isSearchEnabled} />
+                <SwitchCheckbox isChecked={isSearchEnabled} onChange={toggleIsSearchEnabled} />
+
+                <label>Enable row counting</label>
+                <SwitchCheckbox isChecked={isRowCountEnabled} onChange={toggleIsRowCountEnabled} />
 
                 <label>Enable multi-sorting</label>
-                <SwitchCheckbox isChecked={isRowCountEnabled} />
+                <SwitchCheckbox
+                    isChecked={isMultiSortEnabled}
+                    onChange={toggleIsMultiSortEnabled}
+                />
+
+                <Button onClick={resetAllSettings}>Reset to default settings</Button>
             </TableSettingsControlFormSC>
         </Modal>
     );
