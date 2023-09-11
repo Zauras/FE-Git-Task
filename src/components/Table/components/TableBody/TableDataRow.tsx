@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import TableDataCell from '@/components/Table/components/TableDataCell';
+import TableDataCell from '@/components/Table/components/TableBody/TableDataCell';
 import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
-import TableInjectedDataCell from '@/components/Table/components/TableInjectedDataCell';
+import TableInjectedDataCell from '@/components/Table/components/TableBody/TableInjectedDataCell';
 
-const TableRow = ({ dataItem, rowIndex }: { dataItem: any; rowIndex: number }) => {
+const TableDataRow = ({ dataItem, rowIndex }: { dataItem: any; rowIndex: number }) => {
     const { fullColumnConfigList } = useContext(TableSettingsContext);
 
     return (
@@ -36,4 +36,4 @@ const TableRow = ({ dataItem, rowIndex }: { dataItem: any; rowIndex: number }) =
     );
 };
 
-export default TableRow;
+export default TableDataRow;

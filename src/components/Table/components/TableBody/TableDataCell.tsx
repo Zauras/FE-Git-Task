@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 
 import { ITableColumnConfig } from '@/components/Table/Table.models';
-import TableDataCellSC from '@/components/Table/styles/TableDataCell.styles';
+import TableDataCellSC from '@/components/Table/components/TableBody/styles/TableDataCell.styles';
 import { TableStateContext } from '@/components/Table/state/TableState/TableStateContext';
 
 const getHighlightedText = (text: string, highlight: string) => {

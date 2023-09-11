@@ -6,7 +6,7 @@ interface IButtonProps {
     children: string | ReactNode;
     isPrimary?: boolean;
     backgroundColor?: string;
-    size?: EButtonSize;
+    size?: EButtonSize | 'small' | 'large';
     onClick?: () => void;
 }
 

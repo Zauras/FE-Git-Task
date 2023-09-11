@@ -1,17 +1,16 @@
 import React, { ReactNode, useContext, useMemo } from 'react';
 
-import TableColumnHeaderSC from '@/components/Table/styles/TableColumnHeader.styles';
+import TableColumnHeaderSC from '@/components/Table/components/TableHead/styles/TableColumnHeader.styles';
 import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
 import {
     EColumnSorting,
     TableStateContext,
 } from '@/components/Table/state/TableState/TableStateContext';
 import { ITableColumnConfig, TDataFieldAccessor } from '@/components/Table/Table.models';
-import SortButtonSC from '@/components/Table/components/TableHead/styles/SortButton.styles';
-
 import { ReactComponent as UpSvg } from '@/components/Table/icons/up.svg';
 import { ReactComponent as DownSvg } from '@/components/Table/icons/down.svg';
 import { ReactComponent as UpAndDownSvg } from '@/components/Table/icons/up_and_down.svg';
+import TableGrid from '@/components/Table/components/TableGrid';
 
 const SortButton = ({
     columnId,
@@ -87,11 +86,16 @@ const TableHead = () => {
 
     return (
         <thead>
-            <tr>
-                {fullColumnConfigList.map((columnConfig) => (
-                    <TableColumnHeader key={columnConfig.columnId} columnConfig={columnConfig} />
-                ))}
-            </tr>
+            <TableGrid>
+                <tr>
+                    {fullColumnConfigList.map((columnConfig) => (
+                        <TableColumnHeader
+                            key={columnConfig.columnId}
+                            columnConfig={columnConfig}
+                        />
+                    ))}
+                </tr>
+            </TableGrid>
         </thead>
     );
 };

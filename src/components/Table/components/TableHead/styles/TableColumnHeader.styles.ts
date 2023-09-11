@@ -1,22 +1,37 @@
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { ITableColumnConfig } from '@/components/Table/Table.models';
+import { EColumnAlign, ITableColumnConfig } from '@/components/Table/Table.models';
 import { getColumnAlignByDataType } from '@/components/Table/settings/defaultColumnAlign';
 
-const getCellContentAlign = (columnConfig: ITableColumnConfig): SerializedStyles => {
+const getFlexJustifyByTextAlign = (textAlign: string): string => {
+    switch (textAlign) {
+        case EColumnAlign.Right:
+            return 'flex-end';
+
+        case EColumnAlign.Center:
+            return 'center';
+
+        case EColumnAlign.Left:
+        default:
+            return 'flex-start';
+    }
+};
+
+const getCellContentJustify = (columnConfig: ITableColumnConfig): SerializedStyles => {
     const { columnDataType, customStylingDto } = columnConfig;
     const { align } = customStylingDto || {};
-
-    const alignment = align || getColumnAlignByDataType(columnDataType);
+    const textAlign = align || getColumnAlignByDataType(columnDataType);
 
     return css`
-        text-align: ${alignment};
+        justify-content: ${getFlexJustifyByTextAlign(textAlign)};
     `;
 };
 
 const TableColumnHeaderSC = styled.th<{ columnConfig: ITableColumnConfig }>`
-    ${({ columnConfig }) => getCellContentAlign(columnConfig)}
+    display: flex;
+    align-items: center;
+    ${({ columnConfig }) => getCellContentJustify(columnConfig)}
 
     position: sticky;
     top: 0;
@@ -25,7 +40,7 @@ const TableColumnHeaderSC = styled.th<{ columnConfig: ITableColumnConfig }>`
 
     .table-header-label {
         font-weight: 600;
-        font-size: 1.1rem;
+        font-size: ${({ theme }) => theme.fontSize.lg};
         color: ${({ theme }) => theme.colors.textInvert};
     }
 

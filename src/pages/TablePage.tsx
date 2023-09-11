@@ -44,6 +44,7 @@ const columnConfigList: ITableColumnConfig[] = [
         label: 'Game',
         dataAccessor: 'product',
         columnDataType: EColumnType.String,
+        isSortable: true,
     },
     {
         columnId: 'price',
@@ -64,6 +65,7 @@ const columnConfigList: ITableColumnConfig[] = [
         label: 'Info Update',
         dataAccessor: 'updated',
         columnDataType: EColumnType.DateTime,
+        isSortable: true,
     },
 ];
 

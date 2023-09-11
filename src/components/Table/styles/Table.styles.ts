@@ -1,32 +1,14 @@
 import styled from '@emotion/styled';
-import { css, SerializedStyles } from '@emotion/react';
 
-import { ITableColumnConfig } from '@/components/Table/Table.models';
-import { getColumnSizeByDataType } from '@/components/Table/settings/defaultColumnSizes';
-
-const getGridTemplate = ({
-    columnConfigList,
-}: {
-    columnConfigList: ITableColumnConfig[];
-}): SerializedStyles => {
-    const gridTemplateColumn = columnConfigList.reduce((acc, columnConfig) => {
-        const { columnDataType } = columnConfig;
-        const columnWidth = getColumnSizeByDataType(columnDataType);
-
-        return `${acc} ${columnWidth}`;
-    }, '');
-
-    return css`
-        grid-template-columns: ${gridTemplateColumn};
-        grid-template-rows: repeat(auto-fill, 4rem);
-    `;
-};
-
-const TableGridSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
-    display: grid;
-    ${(props) => getGridTemplate(props)}
-
+const TableSC = styled.table`
     overflow: hidden;
+
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
 
     thead,
     tbody,
@@ -34,9 +16,15 @@ const TableGridSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
         display: contents;
     }
 
+    tbody {
+        display: block;
+        border-right: 2px solid ${({ theme }) => theme.colors.border};
+        border-left: 2px solid ${({ theme }) => theme.colors.border};
+    }
+
     th,
     td {
-        padding: 15px;
+        padding: 1rem 1.25rem;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -49,6 +37,15 @@ const TableGridSC = styled.table<{ columnConfigList: ITableColumnConfig[] }>`
     tr:nth-of-type(even) td {
         background: ${({ theme }) => theme.colors.backgroundDim};
     }
+
+    tfoot {
+        display: block;
+        height: 2rem;
+        width: 100%;
+
+        background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
+        color: ${({ theme }) => theme.colors.textInvert};
+    }
 `;
 
-export default TableGridSC;
+export default TableSC;

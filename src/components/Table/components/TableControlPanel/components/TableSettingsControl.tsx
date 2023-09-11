@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 
 import Button from '@/components/Button/CommonButton/Button';
 import TableSettingsControlModal from '@/components/Table/components/TableControlPanel/components/TableSettingsControlModal';
+import { EButtonSize } from '@/components/Button/Button.models';
 
 const TableSettingsControl = () => {
     const [isTableSettingsOpen, setIsTableSettingsOpen] = useState(false);
@@ -12,7 +13,10 @@ const TableSettingsControl = () => {
 
     return (
         <div className="table-settings-control">
-            <Button onClick={toggleTableSettingsModal}>Settings</Button>
+            <Button size={EButtonSize.Small} onClick={toggleTableSettingsModal}>
+                Settings
+            </Button>
+
             <TableSettingsControlModal
                 isOpen={isTableSettingsOpen}
                 onClose={toggleTableSettingsModal}

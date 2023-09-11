@@ -37,7 +37,7 @@ const getSizeStyles = ({
     size = EButtonSize.Medium,
 }: {
     theme: Theme;
-    size?: EButtonSize;
+    size?: EButtonSize | 'small' | 'large';
 }) => {
     switch (size) {
         case EButtonSize.Small: {
@@ -65,6 +65,7 @@ const getSizeStyles = ({
 const ButtonSC = styled.button<IButtonProps>`
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
+    //height: 1.5rem;
 
     border-radius: 0.5em;
 
