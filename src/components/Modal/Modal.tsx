@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useCallback, useEffect } from 'react';
+import React, { SyntheticEvent, useCallback, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
@@ -46,9 +46,11 @@ const Modal = ({
         };
     }, [closeOnEscKeyDown]);
 
+    const nodeRef = useRef(null);
+
     return ReactDOM.createPortal(
-        <CSSTransition in={isOpen} unmountOnExit timeout={300}>
-            <ModalSC className="modal" onClick={onClose}>
+        <CSSTransition nodeRef={nodeRef} in={isOpen} unmountOnExit timeout={300}>
+            <ModalSC ref={nodeRef} className="modal" onClick={onClose}>
                 <div className="modal-content" onClick={eventStopPropagation}>
                     <header className="modal-header">
                         <div className="modal-title-container">
