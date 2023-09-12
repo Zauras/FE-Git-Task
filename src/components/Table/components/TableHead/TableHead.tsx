@@ -1,101 +1,18 @@
-import React, { ReactNode, useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 
-import TableColumnHeaderSC from '@/components/Table/components/TableHead/styles/TableColumnHeader.styles';
-import { TableSettingsContext } from '@/components/Table/state/TableSettings/TableSettingsContext';
-import {
-    EColumnSorting,
-    TableStateContext,
-} from '@/components/Table/state/TableState/TableStateContext';
-import { ITableColumnConfig, TDataFieldAccessor } from '@/components/Table/Table.models';
-import { ReactComponent as UpSvg } from '@/components/Table/icons/up.svg';
-import { ReactComponent as DownSvg } from '@/components/Table/icons/down.svg';
-import { ReactComponent as UpAndDownSvg } from '@/components/Table/icons/up_and_down.svg';
-import TableGrid from '@/components/Table/components/TableGrid';
-
-const SortButton = ({
-    columnId,
-    dataAccessor,
-    children,
-}: {
-    columnId: string;
-    dataAccessor: TDataFieldAccessor;
-    children: ReactNode;
-}) => {
-    const { tableSorting, setSorting } = useContext(TableStateContext);
-    const columnSorting = tableSorting[columnId];
-    const sorting = columnSorting?.sorting;
-
-    const handleToggleSort = () => {
-        if (!columnSorting?.sorting) {
-            setSorting({ columnId, dataAccessor, sorting: EColumnSorting.Asc });
-        } else if (columnSorting.sorting === EColumnSorting.Asc) {
-            setSorting({ columnId, dataAccessor, sorting: EColumnSorting.Desc });
-        } else {
-            setSorting({ columnId, dataAccessor, sorting: null });
-        }
-    };
-
-    const sortIndicator = useMemo(() => {
-        switch (sorting) {
-            case EColumnSorting.Asc:
-                return <UpSvg className="sort-svg" />;
-            case EColumnSorting.Desc:
-                return <DownSvg className="sort-svg" />;
-            default:
-                return <UpAndDownSvg className="sort-svg" />;
-        }
-    }, [sorting]);
-
-    return (
-        <button className="sort-btn-wrapper" onClick={handleToggleSort}>
-            {children}
-            {sortIndicator}
-        </button>
-    );
-};
-
-const TableColumnHeaderLabel = ({ label }: { label: string }) => {
-    return <div className="table-header-label">{label}</div>;
-};
-
-const TableColumnHeader = ({ columnConfig }: { columnConfig: ITableColumnConfig }) => {
-    const { columnId, dataAccessor, isSortable } = useMemo(
-        () => columnConfig,
-        [columnConfig.columnId, columnConfig.dataAccessor, columnConfig.isSortable]
-    );
-
-    return (
-        <TableColumnHeaderSC
-            key={columnId}
-            className="table-column-header-sc"
-            columnConfig={columnConfig}
-        >
-            {isSortable ? (
-                <SortButton columnId={columnId} dataAccessor={dataAccessor}>
-                    <TableColumnHeaderLabel label={columnConfig.label} />
-                </SortButton>
-            ) : (
-                <TableColumnHeaderLabel label={columnConfig.label} />
-            )}
-        </TableColumnHeaderSC>
-    );
-};
+import TableColumnHeader from '@/components/Table/components/TableHead/components/TableColumnHeader';
+import { TableColumnsContext } from '@/components/Table/state/TableColumns/TableColumnsContext';
 
 const TableHead = () => {
-    const { fullColumnConfigList } = useContext(TableSettingsContext);
+    const { fullColumnConfigList } = useContext(TableColumnsContext);
 
     return (
         <thead>
-            <TableGrid>
-                <tr>
-                    {fullColumnConfigList.map((columnConfig) => (
-                        <TableColumnHeader
-                            key={columnConfig.columnId}
-                            columnConfig={columnConfig}
-                        />
-                    ))}
-                </tr>
-            </TableGrid>
+            <tr>
+                {fullColumnConfigList.map((columnConfig) => (
+                    <TableColumnHeader key={columnConfig.columnId} columnConfig={columnConfig} />
+                ))}
+            </tr>
         </thead>
     );
 };

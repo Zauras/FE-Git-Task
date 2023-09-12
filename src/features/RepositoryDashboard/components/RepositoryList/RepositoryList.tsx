@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-import TableGridSC from '@/components/Table/styles/TableGrid.styles';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 import RepositoryListItem from '@/features/RepositoryDashboard/components/RepositoryList/RepositoryListItem';
 

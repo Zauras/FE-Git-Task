@@ -4,7 +4,7 @@ const TableControlPanelSC = styled.aside`
     background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
     color: ${({ theme }) => theme.colors.textInvert};
 
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
     display: flex;

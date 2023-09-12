@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import Modal from '@/components/Modal/Modal';
-import TableGridSC from '@/components/Table/styles/TableGrid.styles';
 import ReleaseContentSC from '@/features/RepositoryDashboard/components/ReleasesModal/styles/ReleaseContentSC.styles';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
 

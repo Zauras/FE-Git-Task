@@ -5,7 +5,7 @@ import { EButtonSize, IButtonProps } from '@/components/Button/CommonButton/Butt
 
 const getVariantStyles = ({ theme, isPrimary = false }: { theme: Theme; isPrimary?: boolean }) => {
     const {
-        colors: { textMain, textInvert, primary, primaryHover, secondary },
+        colors: { textMain, textInvert, primary, primaryHover, secondary, border },
     } = theme;
 
     return isPrimary
@@ -22,12 +22,11 @@ const getVariantStyles = ({ theme, isPrimary = false }: { theme: Theme; isPrimar
         : css`
               color: ${textMain};
               background-color: ${secondary};
-              border: 2px solid ${primary};
-              box-shadow: ${primary} 0px 0px 3px 1px inset;
+              border: 2px solid ${border};
 
               :hover {
                   border-color: ${primaryHover};
-                  box-shadow: ${primaryHover} 0px 0px 6px 1px inset;
+                  box-shadow: ${primaryHover} 0px 0px 3px 1px inset;
               }
           `;
 };

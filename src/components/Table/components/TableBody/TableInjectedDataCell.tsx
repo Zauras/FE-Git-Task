@@ -1,8 +1,8 @@
 import React from 'react';
 
 import TableDataCellSC from '@/components/Table/components/TableBody/styles/TableDataCell.styles';
-import { rowCountColumnConfig } from '@/components/Table/state/TableSettings/TableSettingsContext';
-import { ITableColumnConfig } from '@/components/Table/Table.models';
+import { ITableColumnConfig } from '@/components/Table/models/config.models';
+import { EInjectableColumnId } from '@/components/Table/models/column.models';
 
 const TableInjectedDataCell = ({
     columnConfig,
@@ -12,7 +12,7 @@ const TableInjectedDataCell = ({
     rowIndex: number;
 }) => {
     switch (columnConfig.columnId) {
-        case rowCountColumnConfig.columnId:
+        case EInjectableColumnId.RowCount:
             return <TableDataCellSC columnConfig={columnConfig}>{rowIndex + 1}</TableDataCellSC>;
 
         default:

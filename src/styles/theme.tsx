@@ -13,10 +13,10 @@ const theme: Theme = {
         warning: '#ffc107',
         error: '#dc3545',
 
-        border: '#c4c7cc',
+        border: '#bbbec3',
 
         textHeader: '#000',
-        textMain: '#4E5157',
+        textMain: '#606369',
         textInvert: '#fff',
         textSup: '#7A7E88',
         textBackgroundHighlight: '#FF9E30',

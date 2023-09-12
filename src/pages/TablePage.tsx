@@ -2,8 +2,13 @@ import React from 'react';
 
 import PageLayoutSC from '@/components/PageLayout/PageLayoutSC.styles';
 import Table from '@/components/Table/Table';
-import { EColumnType, ITableColumnConfig, ITableConfig } from '@/components/Table/Table.models';
-import { EColumnSorting } from '@/components/Table/state/TableState/TableStateContext';
+import {
+    ITableColumnConfig,
+    ITableConfigProps,
+    ITableSettingsProps,
+} from '@/components/Table/models/config.models';
+import { EColumnDataType } from '@/components/Table/models/column.models';
+import { EColumnSorting } from '@/components/Table/models/sorting.models';
 
 const testData = [
     {
@@ -43,36 +48,39 @@ const columnConfigList: ITableColumnConfig[] = [
         columnId: 'game',
         label: 'Game',
         dataAccessor: 'product',
-        columnDataType: EColumnType.String,
+        columnDataType: EColumnDataType.String,
         isSortable: true,
     },
     {
         columnId: 'price',
         label: 'Price',
         dataAccessor: 'price',
-        columnDataType: EColumnType.Number,
+        columnDataType: EColumnDataType.Number,
         isSortable: true,
     },
     {
         columnId: 'release_date',
         label: 'Release Date',
         dataAccessor: 'releaseDate',
-        columnDataType: EColumnType.Date,
+        columnDataType: EColumnDataType.Date,
         isSortable: true,
     },
     {
         columnId: 'info_update',
         label: 'Info Update',
         dataAccessor: 'updated',
-        columnDataType: EColumnType.DateTime,
+        columnDataType: EColumnDataType.DateTime,
         isSortable: true,
     },
 ];
 
-const tableConfig: ITableConfig = {
-    isMultiSortEnabled: true,
-    isMultiSortingSwitchRender: true,
+const tableConfig: ITableConfigProps = {
+    columnConfigList,
     defaultSorting: [{ columnId: 'price', sorting: EColumnSorting.Desc }],
+};
+
+const tableSettings: ITableSettingsProps = {
+    isMultiSortEnabled: true,
     isRowCountEnabled: true,
     isSearchEnabled: true,
 };
@@ -86,9 +94,9 @@ const TablePage = () => {
 
             <div className="page-content">
                 <Table
-                    columnConfigList={columnConfigList}
+                    tableSettings={tableSettings}
                     tableConfig={tableConfig}
-                    rowData={testData}
+                    tableData={testData}
                 />
             </div>
 

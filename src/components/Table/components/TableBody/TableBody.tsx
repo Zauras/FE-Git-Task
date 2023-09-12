@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
 
 import TableDataRow from '@/components/Table/components/TableBody/TableDataRow';
-import { TableStateContext } from '@/components/Table/state/TableState/TableStateContext';
-import TableGrid from '@/components/Table/components/TableGrid';
-
-import styled from '@emotion/styled';
+import { TableDataContext } from '@/components/Table/state/TableData/TableDataContext';
 
 const TableBody = () => {
-    const { tableData } = useContext(TableStateContext);
+    const { tableData } = useContext(TableDataContext);
 
     if (tableData.length == 0) {
         return (
@@ -19,11 +16,9 @@ const TableBody = () => {
 
     return (
         <tbody>
-            <TableGrid>
-                {tableData.map((dataItem, i) => (
-                    <TableDataRow key={JSON.stringify(dataItem)} dataItem={dataItem} rowIndex={i} />
-                ))}
-            </TableGrid>
+            {tableData.map((dataItem, i) => (
+                <TableDataRow key={JSON.stringify(dataItem)} dataItem={dataItem} rowIndex={i} />
+            ))}
         </tbody>
     );
 };

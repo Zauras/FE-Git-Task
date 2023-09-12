@@ -1,4 +1,4 @@
-import { TDataFieldAccessor } from '@/components/Table/Table.models';
+import { TDataFieldAccessor } from '@/components/Table/models/data.models';
 
 const generateListKey = (prefix: string | number = ''): string => {
     return `${prefix}_${new Date().getTime()}`;

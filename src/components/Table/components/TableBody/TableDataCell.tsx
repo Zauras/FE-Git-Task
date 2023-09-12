@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from 'react';
 
-import { ITableColumnConfig } from '@/components/Table/Table.models';
 import TableDataCellSC from '@/components/Table/components/TableBody/styles/TableDataCell.styles';
-import { TableStateContext } from '@/components/Table/state/TableState/TableStateContext';
+import { TableSearchContext } from '@/components/Table/state/TableSearch/TableSearchContext';
+import { ITableColumnConfig } from '@/components/Table/models/config.models';
 
 const getHighlightedText = (text: string, highlight: string) => {
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
@@ -26,10 +26,10 @@ const TableDataCell = ({
     dataField,
     columnConfig,
 }: {
-    dataField: any;
+    dataField: object;
     columnConfig: ITableColumnConfig;
 }) => {
-    const { tableSearchValue } = useContext(TableStateContext);
+    const { tableSearchValue } = useContext(TableSearchContext);
 
     const valueHtmlWithHighlights = useMemo(
         () => getHighlightedText(String(dataField), tableSearchValue),

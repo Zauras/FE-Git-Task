@@ -2,10 +2,10 @@ import { useContext } from 'react';
 
 import Button from '@/components/Button/CommonButton/Button';
 import { EButtonSize } from '@/components/Button/Button.models';
-import { TableStateContext } from '@/components/Table/state/TableState/TableStateContext';
+import { TableSortingContext } from '@/components/Table/state/TableSorting/TableSortingContext';
 
 const TableSortControl = () => {
-    const { resetSorting } = useContext(TableStateContext);
+    const { resetSorting } = useContext(TableSortingContext);
 
     return (
         <div className="table-sorting-control">

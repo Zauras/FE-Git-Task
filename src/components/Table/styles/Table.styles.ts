@@ -1,25 +1,43 @@
 import styled from '@emotion/styled';
+import { css, SerializedStyles } from '@emotion/react';
 
-const TableSC = styled.table`
+import { getColumnSizeByDataType } from '@/components/Table/utils/defaultColumnSizes';
+import { ITableColumnConfig } from '@/components/Table/models/config.models';
+
+const getGridTemplate = ({
+    fullColumnConfigList,
+}: {
+    fullColumnConfigList: ITableColumnConfig[];
+}): SerializedStyles => {
+    const gridTemplateColumn = fullColumnConfigList.reduce((acc, columnConfig) => {
+        const { columnDataType } = columnConfig;
+        const columnWidth = getColumnSizeByDataType(columnDataType);
+
+        return `${acc} ${columnWidth}`;
+    }, '');
+
+    return css`
+        grid-template-columns: ${gridTemplateColumn};
+    `;
+};
+
+const TableContainerSC = styled.div<{ fullColumnConfigList: ITableColumnConfig[] }>`
     overflow: hidden;
-
-    border-spacing: 0;
-    border-collapse: collapse;
-
     border-radius: 1rem;
     -moz-border-radius: 1rem;
     -webkit-border-radius: 1rem;
 
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
     thead,
     tbody,
     tr {
-        display: contents;
-    }
-
-    tbody {
-        display: block;
-        border-right: 2px solid ${({ theme }) => theme.colors.border};
-        border-left: 2px solid ${({ theme }) => theme.colors.border};
+        display: grid;
+        gap: 1.25rem;
+        ${(props) => getGridTemplate(props)}
     }
 
     th,
@@ -30,12 +48,29 @@ const TableSC = styled.table`
         white-space: nowrap;
     }
 
-    th:last-child {
-        border: 0;
+    tr {
+        padding: 0 0.75rem;
     }
 
-    tr:nth-of-type(even) td {
-        background: ${({ theme }) => theme.colors.backgroundDim};
+    thead {
+        display: block;
+        border-right: 2px solid ${({ theme }) => theme.colors.accentPrimarySolid};
+        border-left: 2px solid ${({ theme }) => theme.colors.accentPrimarySolid};
+        background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
+
+        th:last-child {
+            border: 0;
+        }
+    }
+
+    tbody {
+        display: block;
+        border-right: 2px solid ${({ theme }) => theme.colors.border};
+        border-left: 2px solid ${({ theme }) => theme.colors.border};
+
+        tr:nth-of-type(even) {
+            background: ${({ theme }) => theme.colors.backgroundDim};
+        }
     }
 
     tfoot {
@@ -48,4 +83,4 @@ const TableSC = styled.table`
     }
 `;
 
-export default TableSC;
+export default TableContainerSC;

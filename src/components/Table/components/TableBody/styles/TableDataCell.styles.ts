@@ -1,8 +1,8 @@
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { ITableColumnConfig } from '@/components/Table/Table.models';
-import { getColumnAlignByDataType } from '@/components/Table/settings/defaultColumnAlign';
+import { getColumnAlignByDataType } from '@/components/Table/utils/defaultColumnAlign';
+import { ITableColumnConfig } from '@/components/Table/models/config.models';
 
 const getCellContentAlign = (columnConfig: ITableColumnConfig): SerializedStyles => {
     const { columnDataType, customStylingDto } = columnConfig;

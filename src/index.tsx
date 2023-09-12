@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -8,7 +8,6 @@ import StyleProvider from '@/styles/StyleProvider';
 
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-
 
 const router = createBrowserRouter([
     {
@@ -24,11 +23,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-    <React.StrictMode>
+    <StrictMode>
         <StyleProvider>
             <RouterProvider router={router} />
         </StyleProvider>
-    </React.StrictMode>
+    </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
