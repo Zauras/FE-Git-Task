@@ -22,7 +22,11 @@ const SortableHeaderContainer = ({
         if (!columnSorting?.sorting) {
             setSorting({ columnId, dataAccessor, sorting: EColumnSorting.Asc });
         } else if (columnSorting.sorting === EColumnSorting.Asc) {
-            setSorting({ columnId, dataAccessor, sorting: EColumnSorting.Desc });
+            setSorting({
+                columnId,
+                dataAccessor,
+                sorting: EColumnSorting.Desc,
+            });
         } else {
             setSorting({ columnId, dataAccessor, sorting: null });
         }
@@ -31,9 +35,9 @@ const SortableHeaderContainer = ({
     const sortIndicator = useMemo(() => {
         switch (sorting) {
             case EColumnSorting.Asc:
-                return <UpSvg className="sort-svg" />;
-            case EColumnSorting.Desc:
                 return <DownSvg className="sort-svg" />;
+            case EColumnSorting.Desc:
+                return <UpSvg className="sort-svg" />;
             default:
                 return <UpAndDownSvg className="sort-svg" />;
         }

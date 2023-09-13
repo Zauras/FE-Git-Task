@@ -4,6 +4,7 @@ import { TableSettingsContext } from '@/components/Table/state/TableSettings/Tab
 import { TableConfigContext } from '@/components/Table/state/TableConfig/TableConfigContext';
 import { TColumnId } from '@/components/Table/models/column.models';
 import {
+    EColumnSorting,
     IColumnSortDto,
     IColumnSortState,
     TTableSorting,
@@ -53,30 +54,36 @@ const TableSortingProvider = ({ children }: { children: ReactNode }) => {
     const handleSetSorting = useCallback(
         (sortingDto: IColumnSortDto) => {
             const { columnId, dataAccessor, sorting } = sortingDto;
-            if (!sorting) {
-                let newTableSorting: TTableSorting = {};
+            const newTableSorting: TTableSorting = {
+                ...defaultTableSorting,
+                ...(isMultiSortEnabled ? tableSorting : {}),
+            };
 
-                if (isMultiSortEnabled) {
-                    newTableSorting = { ...tableSorting };
+            if (!sorting) {
+                const defaultColSort = defaultTableSorting[columnId];
+
+                if (defaultColSort) {
+                    newTableSorting[columnId] = {
+                        ...defaultColSort,
+                        sortActionTimestamp: Date.now(),
+                        sorting:
+                            tableSorting[columnId].sorting === EColumnSorting.Desc
+                                ? EColumnSorting.Asc
+                                : EColumnSorting.Desc,
+                    };
+                } else {
                     delete newTableSorting[columnId];
                 }
-
-                setTableSorting(newTableSorting);
             } else {
-                const sortActionTimestamp = Date.now();
-                let newTableSorting: TTableSorting = {
-                    [columnId]: { columnId, dataAccessor, sorting, sortActionTimestamp },
+                newTableSorting[columnId] = {
+                    columnId,
+                    dataAccessor,
+                    sorting,
+                    sortActionTimestamp: Date.now(),
                 };
-
-                if (isMultiSortEnabled) {
-                    newTableSorting = {
-                        ...tableSorting,
-                        ...newTableSorting,
-                    };
-                }
-
-                setTableSorting(newTableSorting);
             }
+
+            setTableSorting(newTableSorting);
         },
         [tableSorting]
     );
