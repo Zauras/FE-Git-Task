@@ -85,17 +85,16 @@ const TableSortingProvider = ({ children }: { children: ReactNode }) => {
         setTableSorting(defaultTableSorting);
     }, [defaultTableSorting]);
 
-    return (
-        <TableSortingContext.Provider
-            value={{
-                tableSorting,
-                setSorting: handleSetSorting,
-                resetSorting: resetSortingToDefault,
-            }}
-        >
-            {children}
-        </TableSortingContext.Provider>
+    const ctxValue = useMemo(
+        () => ({
+            tableSorting,
+            setSorting: handleSetSorting,
+            resetSorting: resetSortingToDefault,
+        }),
+        [tableSorting]
     );
+
+    return <TableSortingContext.Provider value={ctxValue}>{children}</TableSortingContext.Provider>;
 };
 
 export { TableSortingContext, TableSortingProvider };

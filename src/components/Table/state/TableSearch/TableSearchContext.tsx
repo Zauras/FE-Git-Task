@@ -1,15 +1,19 @@
 import { createContext, ReactNode, useState } from 'react';
 
+const defaultContextValue = {
+    tableSearchValue: '',
+    setTableSearchValue: (keyword: string) => null,
+};
+
 const TableSearchContext = createContext<{
     tableSearchValue: string;
     setTableSearchValue: (keyword: string) => void;
-}>({
-    tableSearchValue: '',
-    setTableSearchValue: (keyword: string) => null,
-});
+}>(defaultContextValue);
 
 const TableSearchProvider = ({ children }: { children: ReactNode }) => {
-    const [tableSearchStr, setTableSearchStr] = useState<string>('');
+    const [tableSearchStr, setTableSearchStr] = useState<string>(
+        defaultContextValue.tableSearchValue
+    );
 
     return (
         <TableSearchContext.Provider

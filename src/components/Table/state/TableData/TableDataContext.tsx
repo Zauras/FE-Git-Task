@@ -1,14 +1,15 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { TColumnId } from '@/components/Table/models/column.models';
 import { getSortedTableData } from '@/components/Table/state/TableData/aggregators/applySorting';
 import { getFilteredTableData } from '@/components/Table/state/TableData/aggregators/applyFilters';
 import { TableSortingContext } from '@/components/Table/state/TableSorting/TableSortingContext';
 import { TableSearchContext } from '@/components/Table/state/TableSearch/TableSearchContext';
 import { TableConfigContext } from '@/components/Table/state/TableConfig/TableConfigContext';
 import { getDataFieldValue } from '@/components/Table/utils/dataAccess';
+import { TTableData } from '@/components/Table/models/data.models';
+import { TTableRowData } from '@/components/Table/models/row.models';
 
-const TableDataContext = createContext<{ tableData: object[] }>({ tableData: [] });
+const TableDataContext = createContext<{ tableData: TTableData }>({ tableData: [] });
 
 const TableDataProvider = ({
     initData = [],
@@ -21,39 +22,55 @@ const TableDataProvider = ({
     const { tableSorting } = useContext(TableSortingContext);
     const { tableSearchValue } = useContext(TableSearchContext);
 
-    const [tableData, setTableData] = useState(() =>
-        initData.map((dataRow) =>
-            columnConfigList.reduce(
-                (acc, { columnId, dataAccessor }) => {
+    const tableData = useMemo(
+        () =>
+            initData.map((dataRow) =>
+                columnConfigList.reduce((acc, { columnId, dataAccessor }) => {
                     acc[columnId] = getDataFieldValue(dataAccessor, dataRow);
                     return acc;
-                },
-                {} as Record<TColumnId, number | string | null>
-            )
-        )
+                }, {} as TTableRowData)
+            ) as TTableData,
+        [initData]
     );
 
-    const [aggrTableData, setAggrTableData] = useState(tableData);
+    const [aggrTableData, setAggrTableData] = useState<TTableData>(() => {
+        return getSortedTableData({ tableData, tableSorting });
+    });
+    const prevFilterRef = useRef<string>(tableSearchValue);
+    const prevSortingRef = useRef<any>(tableSorting);
 
     useEffect(() => {
-        const sortedData = getSortedTableData({ tableData, tableSorting });
-        setAggrTableData(sortedData);
-    }, [tableSorting]);
+        if (prevFilterRef.current === tableSearchValue) return;
+        prevFilterRef.current = tableSearchValue;
 
-    useEffect(() => {
-        const sortedData = getFilteredTableData({ tableData, filterKeyword: tableSearchValue });
-        setAggrTableData(sortedData);
+        let data = getFilteredTableData({
+            tableData: tableData,
+            filterKeyword: tableSearchValue,
+        });
+        data = getSortedTableData({
+            tableData: data,
+            tableSorting,
+        });
+
+        setAggrTableData(data);
     }, [tableSearchValue]);
 
-    return (
-        <TableDataContext.Provider
-            value={{
-                tableData: aggrTableData,
-            }}
-        >
-            {children}
-        </TableDataContext.Provider>
-    );
+    useEffect(() => {
+        if (prevSortingRef.current === tableSorting) return;
+        prevSortingRef.current = tableSorting;
+
+        const data = getSortedTableData({
+            tableData: aggrTableData,
+            tableSorting,
+        });
+        setAggrTableData(data);
+    }, [tableSorting]);
+
+    const ctxValue = useMemo(() => {
+        return { tableData: aggrTableData };
+    }, [aggrTableData]);
+
+    return <TableDataContext.Provider value={ctxValue}>{children}</TableDataContext.Provider>;
 };
 
 export { TableDataProvider, TableDataContext };

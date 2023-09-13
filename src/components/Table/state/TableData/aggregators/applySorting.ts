@@ -1,4 +1,4 @@
-import { EColumnSorting, TTableSorting } from "@/components/Table/models/sorting.models";
+import { EColumnSorting, TTableSorting } from '@/components/Table/models/sorting.models';
 import { TTableData } from '@/components/Table/models/data.models';
 
 const getSortedTableData = ({

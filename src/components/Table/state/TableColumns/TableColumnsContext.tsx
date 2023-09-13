@@ -49,15 +49,14 @@ const TableColumnsProvider = ({ children }: { children: ReactNode }) => {
         return fullColumnConfigList;
     }, [injectedColumnConfigList, columnConfigList]);
 
-    return (
-        <TableColumnsContext.Provider
-            value={{
-                autoGenColumnConfigList: injectedColumnConfigList,
-                fullColumnConfigList: fullColumnConfigList,
-            }}
-        >
-            {children}
-        </TableColumnsContext.Provider>
+    const ctxValue = useMemo(
+        () => ({
+            autoGenColumnConfigList: injectedColumnConfigList,
+            fullColumnConfigList: fullColumnConfigList,
+        }),
+        [fullColumnConfigList]
     );
+
+    return <TableColumnsContext.Provider value={ctxValue}>{children}</TableColumnsContext.Provider>;
 };
 export { TableColumnsContext, TableColumnsProvider };

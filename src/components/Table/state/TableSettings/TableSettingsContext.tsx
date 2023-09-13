@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
 
 import { ITableSettingsProps } from '@/components/Table/models/config.models';
-import { TableConfigContext } from '@/components/Table/state/TableConfig/TableConfigContext';
 
 const TableSettingsContext = createContext<{
     // Data:
@@ -75,7 +74,7 @@ const TableSettingsProvider = ({
         setIsSearchEnabled(initTableSettings.isSearchEnabled);
         setIsRowCountEnabled(initTableSettings.isRowCountEnabled);
         setIsMultiSortEnabled(initTableSettings.isMultiSortEnabled);
-    }, []);
+    }, [initTableSettings]);
 
     return (
         <TableSettingsContext.Provider
