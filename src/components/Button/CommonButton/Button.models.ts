@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { EButtonSize } from '../Button.models';
 
-interface IButtonProps {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: string | ReactNode;
     isPrimary?: boolean;
     backgroundColor?: string;

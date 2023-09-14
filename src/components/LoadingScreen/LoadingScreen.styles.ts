@@ -15,6 +15,7 @@ const LoadingScreenSC = styled.div`
         height: 100%;
         background-color: white;
         opacity: 0.7;
+        z-index: 10;
     }
 
     .spinner {

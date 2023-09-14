@@ -4,6 +4,7 @@ interface ITableProps {
     tableConfig: ITableConfigProps;
     tableSettings: ITableSettingsProps;
     tableData: object[];
+    isLoading?: boolean;
 }
 
 export type { ITableProps };

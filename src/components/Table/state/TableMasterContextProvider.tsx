@@ -7,8 +7,10 @@ import { TableSearchProvider } from '@/components/Table/state/TableSearch/TableS
 import { TableDataProvider } from '@/components/Table/state/TableData/TableDataContext';
 import { ITableProps } from '@/components/Table/models/table.models';
 import { TableColumnsProvider } from '@/components/Table/state/TableColumns/TableColumnsContext';
+import { TableLoadingProvider } from '@/components/Table/state/TableLoading/TableLoadingContext';
 
 const TableMasterContextProvider = ({
+    isLoading,
     tableConfig,
     tableSettings,
     tableData,
@@ -20,7 +22,11 @@ const TableMasterContextProvider = ({
                 <TableColumnsProvider>
                     <TableSearchProvider>
                         <TableSortingProvider>
-                            <TableDataProvider initData={tableData}>{children}</TableDataProvider>
+                            <TableDataProvider initData={tableData}>
+                                <TableLoadingProvider isLoading={isLoading}>
+                                    {children}
+                                </TableLoadingProvider>
+                            </TableDataProvider>
                         </TableSortingProvider>
                     </TableSearchProvider>
                 </TableColumnsProvider>

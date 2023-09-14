@@ -4,6 +4,7 @@ import { TableSortingContext } from '@/components/Table/state/TableSorting/Table
 import { DownSvg, UpAndDownSvg, UpSvg } from '@/components/Table/icons';
 import { EColumnSorting } from '@/components/Table/models/sorting.models';
 import { TDataFieldAccessor } from '@/components/Table/models/data.models';
+import { TableLoadingContext } from '@/components/Table/state/TableLoading/TableLoadingContext';
 
 const SortableHeaderContainer = ({
     columnId,
@@ -14,6 +15,8 @@ const SortableHeaderContainer = ({
     dataAccessor: TDataFieldAccessor;
     children: ReactNode;
 }) => {
+    const { isLoading } = useContext(TableLoadingContext);
+
     const { tableSorting, setSorting } = useContext(TableSortingContext);
     const columnSorting = tableSorting[columnId];
     const sorting = columnSorting?.sorting;
@@ -47,7 +50,7 @@ const SortableHeaderContainer = ({
         <div className="sortable-header-container">
             {children}
             {sortIndicator}
-            <button className="sort-btn" onClick={handleToggleSort}></button>
+            <button className="sort-btn" disabled={isLoading} onClick={handleToggleSort}></button>
         </div>
     );
 };

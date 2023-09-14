@@ -21,6 +21,7 @@ const Table = (tableProps: ITableProps) => {
         <TableMasterContextProvider {...tableProps}>
             <TableContainer>
                 <TableControlPanel />
+
                 <table>
                     <TableHead />
                     <TableBody />
