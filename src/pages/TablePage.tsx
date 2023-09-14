@@ -7,10 +7,15 @@ import {
     ITableConfigProps,
     ITableSettingsProps,
 } from '@/components/Table/models/config.models';
-import { EColumnDataType } from '@/components/Table/models/column.models';
 import { EColumnSorting } from '@/components/Table/models/sorting.models';
+import { EColumnAlign, EColumnSize } from '@/components/Table/models/column.models';
 
-const testData = [
+const testData: Array<{
+    product: string;
+    price: number;
+    releaseDate: string;
+    updated: string;
+}> = [
     {
         product: 'Heroes III: Might & Magic',
         price: 18,
@@ -48,28 +53,32 @@ const columnConfigList: ITableColumnConfig[] = [
         columnId: 'game',
         label: 'Game',
         dataAccessor: 'product',
-        columnDataType: EColumnDataType.String,
         isSortable: true,
+        columnStyleConfig: {
+            align: EColumnAlign.Left,
+            size: EColumnSize.Xl,
+        },
     },
     {
         columnId: 'price',
         label: 'Price',
-        dataAccessor: 'price',
-        columnDataType: EColumnDataType.Number,
+        dataAccessor: (dataObj) => `${dataObj.price} $`,
         isSortable: true,
+        columnStyleConfig: {
+            align: EColumnAlign.Right,
+            size: EColumnSize.Sm,
+        },
     },
     {
         columnId: 'release_date',
         label: 'Release Date',
         dataAccessor: 'releaseDate',
-        columnDataType: EColumnDataType.Date,
         isSortable: true,
     },
     {
         columnId: 'info_update',
         label: 'Info Update',
         dataAccessor: 'updated',
-        columnDataType: EColumnDataType.DateTime,
         isSortable: true,
     },
 ];

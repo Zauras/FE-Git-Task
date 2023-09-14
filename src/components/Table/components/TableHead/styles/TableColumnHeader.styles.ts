@@ -1,7 +1,5 @@
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
-
-import { getColumnAlignByDataType } from '@/components/Table/utils/defaultColumnAlign';
 import { EColumnAlign } from '@/components/Table/models/column.models';
 import { ITableColumnConfig } from '@/components/Table/models/config.models';
 
@@ -20,12 +18,10 @@ const getFlexJustifyByTextAlign = (textAlign: string): string => {
 };
 
 const getCellContentJustify = (columnConfig: ITableColumnConfig): SerializedStyles => {
-    const { columnDataType, customStylingDto } = columnConfig;
-    const { align } = customStylingDto || {};
-    const textAlign = align || getColumnAlignByDataType(columnDataType);
+    const { align = EColumnAlign.Center } = columnConfig.columnStyleConfig || {};
 
     return css`
-        justify-content: ${getFlexJustifyByTextAlign(textAlign)};
+        justify-content: ${getFlexJustifyByTextAlign(align)};
     `;
 };
 

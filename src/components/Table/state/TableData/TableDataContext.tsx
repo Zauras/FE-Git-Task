@@ -6,8 +6,8 @@ import { TableSortingContext } from '@/components/Table/state/TableSorting/Table
 import { TableSearchContext } from '@/components/Table/state/TableSearch/TableSearchContext';
 import { TableConfigContext } from '@/components/Table/state/TableConfig/TableConfigContext';
 import { getDataFieldValue } from '@/components/Table/utils/dataAccess';
-import { TTableData } from '@/components/Table/models/data.models';
-import { TTableRowData } from '@/components/Table/models/row.models';
+import { TTableData, TTableRowData } from '@/components/Table/models/data.models';
+import { IColumnSortState } from '@/components/Table/models/sorting.models';
 
 const TableDataContext = createContext<{ tableData: TTableData }>({ tableData: [] });
 
@@ -24,9 +24,9 @@ const TableDataProvider = ({
 
     const tableData = useMemo(
         () =>
-            initData.map((dataRow) =>
+            initData.map((rowDataObj) =>
                 columnConfigList.reduce((acc, { columnId, dataAccessor }) => {
-                    acc[columnId] = getDataFieldValue(dataAccessor, dataRow);
+                    acc[columnId] = getDataFieldValue(dataAccessor, rowDataObj);
                     return acc;
                 }, {} as TTableRowData)
             ) as TTableData,
@@ -34,10 +34,10 @@ const TableDataProvider = ({
     );
 
     const [aggrTableData, setAggrTableData] = useState<TTableData>(() => {
-        return getSortedTableData({ tableData, tableSorting });
+        return getSortedTableData({ tableData: tableData, tableSorting });
     });
     const prevFilterRef = useRef<string>(tableSearchValue);
-    const prevSortingRef = useRef<any>(tableSorting);
+    const prevSortingRef = useRef<Record<string, IColumnSortState>>(tableSorting);
 
     useEffect(() => {
         if (prevFilterRef.current === tableSearchValue) return;

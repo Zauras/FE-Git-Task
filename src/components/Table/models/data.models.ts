@@ -1,14 +1,21 @@
-import { TTableRowData } from '@/components/Table/models/row.models';
+import { ReactNode } from 'react';
 
-type TDataFieldAccessFn = <T>(rowData: T) => string | number | null;
+import { TColumnId } from '@/components/Table/models/column.models';
 
-type TDataFieldAccessor = string | TDataFieldAccessFn;
+type TCellData = string | number | null;
+type TCellContent = TCellData | ReactNode;
 
+type TTableRowData = Record<TColumnId, TCellData>;
 type TTableData = TTableRowData[];
 
-interface ITableDataItemDto<FieldType> {
-    columnKey: string;
-    cellData: FieldType;
-}
+type TDataFieldAccessFn = (dataObj: any) => TCellData;
+type TDataFieldAccessor = string | TDataFieldAccessFn;
 
-export type { TDataFieldAccessFn, TDataFieldAccessor, TTableData, ITableDataItemDto };
+export type {
+    TCellData,
+    TCellContent,
+    TTableRowData,
+    TTableData,
+    TDataFieldAccessor,
+    TDataFieldAccessFn,
+};

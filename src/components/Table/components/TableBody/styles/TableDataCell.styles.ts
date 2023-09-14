@@ -1,17 +1,14 @@
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getColumnAlignByDataType } from '@/components/Table/utils/defaultColumnAlign';
 import { ITableColumnConfig } from '@/components/Table/models/config.models';
+import { EColumnAlign } from '@/components/Table/models/column.models';
 
 const getCellContentAlign = (columnConfig: ITableColumnConfig): SerializedStyles => {
-    const { columnDataType, customStylingDto } = columnConfig;
-    const { align } = customStylingDto || {};
-
-    const alignment = align || getColumnAlignByDataType(columnDataType);
+    const { align = EColumnAlign.Center } = columnConfig.columnStyleConfig || {};
 
     return css`
-        text-align: ${alignment};
+        text-align: ${align};
     `;
 };
 

@@ -3,14 +3,9 @@ import React, { useContext } from 'react';
 import TableDataCell from '@/components/Table/components/TableBody/TableDataCell';
 import TableInjectedDataCell from '@/components/Table/components/TableBody/TableInjectedDataCell';
 import { TableColumnsContext } from '@/components/Table/state/TableColumns/TableColumnsContext';
+import { TTableRowData } from '@/components/Table/models/data.models';
 
-const TableDataRow = ({
-    dataItem,
-    rowIndex,
-}: {
-    dataItem: Record<string, any>;
-    rowIndex: number;
-}) => {
+const TableDataRow = ({ rowData, rowIndex }: { rowData: TTableRowData; rowIndex: number }) => {
     const { fullColumnConfigList } = useContext(TableColumnsContext);
 
     return (
@@ -28,12 +23,13 @@ const TableDataRow = ({
                     );
                 }
 
-                const dataField = dataItem[columnId];
+                const cellData = rowData[columnId];
 
                 return (
                     <TableDataCell
-                        key={`${rowIndex}_${dataField}`}
-                        dataField={dataField}
+                        key={`${rowIndex}_${cellData}`}
+                        cellData={cellData}
+                        rowData={rowData}
                         columnConfig={columnConfig}
                     />
                 );

@@ -9,7 +9,7 @@ const TableBody = () => {
     if (tableData.length == 0) {
         return (
             <tbody>
-                <div className="no-table-content-container">No results</div>
+                <tr className="empty-table-content">No results</tr>
             </tbody>
         );
     }
@@ -17,7 +17,7 @@ const TableBody = () => {
     return (
         <tbody>
             {tableData.map((dataItem, i) => (
-                <TableDataRow key={JSON.stringify(dataItem)} dataItem={dataItem} rowIndex={i} />
+                <TableDataRow key={JSON.stringify(dataItem)} rowData={dataItem} rowIndex={i} />
             ))}
         </tbody>
     );

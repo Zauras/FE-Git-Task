@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { css, SerializedStyles } from '@emotion/react';
 
-import { getColumnSizeByDataType } from '@/components/Table/utils/defaultColumnSizes';
+import { columnWidthBySizeType } from '@/components/Table/utils/defaultColumnSizes';
 import { ITableColumnConfig } from '@/components/Table/models/config.models';
+import { EColumnSize } from '@/components/Table/models/column.models';
 
 const getGridTemplate = ({
     fullColumnConfigList,
@@ -10,8 +11,8 @@ const getGridTemplate = ({
     fullColumnConfigList: ITableColumnConfig[];
 }): SerializedStyles => {
     const gridTemplateColumn = fullColumnConfigList.reduce((acc, columnConfig) => {
-        const { columnDataType } = columnConfig;
-        const columnWidth = getColumnSizeByDataType(columnDataType);
+        const { size = EColumnSize.Mid } = columnConfig.columnStyleConfig || {};
+        const columnWidth = columnWidthBySizeType[size];
 
         return `${acc} ${columnWidth}`;
     }, '');
@@ -80,6 +81,18 @@ const TableContainerSC = styled.div<{ fullColumnConfigList: ITableColumnConfig[]
 
         background-color: ${({ theme }) => theme.colors.accentPrimarySolid};
         color: ${({ theme }) => theme.colors.textInvert};
+    }
+
+    .empty-table-content {
+        min-height: 10rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        font-size: ${({ theme }) => theme.fontSize.xl};
+        font-weight: 600;
     }
 `;
 

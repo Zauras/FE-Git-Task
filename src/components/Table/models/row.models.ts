@@ -1,7 +1,4 @@
 import { ITableColumnConfig } from '@/components/Table/models/config.models';
-import { TColumnId } from '@/components/Table/models/column.models';
-
-type TTableRowData = Record<TColumnId, string | number | null>;
 
 interface ITableRowProps<DtoType> {
     columnConfigList: ITableColumnConfig[];
@@ -16,5 +13,5 @@ enum EPositionInRow {
     Last = 'last',
 }
 
-export type { TTableRowData, ITableRowProps };
+export type { ITableRowProps };
 export { EPositionInRow };
