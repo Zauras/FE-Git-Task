@@ -1,28 +1,33 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ThemeProvider } from '@emotion/react';
 
-import './index.css';
-import reportWebVitals from './reportWebVitals';
 import HomePage from '@/pages/HomePage';
-import theme from '@/styles/theme';
+import TablePage from '@/pages/TablePage';
+import StyleProvider from '@/styles/StyleProvider';
+
+import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <HomePage />,
     },
+    {
+        path: '/table',
+        element: <TablePage />,
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={theme}>
+    <StrictMode>
+        <StyleProvider>
             <RouterProvider router={router} />
-        </ThemeProvider>
-    </React.StrictMode>
+        </StyleProvider>
+    </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

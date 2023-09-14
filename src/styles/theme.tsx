@@ -2,21 +2,38 @@ import { Theme } from '@emotion/react';
 
 const theme: Theme = {
     colors: {
-        primary: '#3c6ed3',
+        primary: 'rgb(68, 117, 253)', //'#20b2fd', //'rgb(32, 178, 253)', //'#20b2fd', // rgb(32, 178, 253)
+        primaryHover: '#128bce',
         primaryDisabled: '#6b73b1',
+
+        secondary: '#fff',
+        secondaryDisabled: '#BFBFBF',
+
         success: '#28a745',
         warning: '#ffc107',
         error: '#dc3545',
 
-        borderGray: '#D3D7DC',
+        border: '#bbbec3',
 
-        lightTextGray: '#7A7E88',
-        textGray: '#4E5157',
+        textHeader: '#000',
+        textMain: '#606369',
+        textInvert: '#fff',
+        textSup: '#7A7E88',
+        textBackgroundHighlight: '#FF9E30',
 
-        white: '#ffffff',
+        backgroundDisabled: '#ccc',
+        backgroundDim: '#e3e7ec',
+        backgroundPrimary: '#ffffff',
 
-        accentPrimary: '#1DA1F2',
-        backgroundAccent: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%)',
+        accentPrimarySolid: '#00adfd',
+        accentPrimaryGradient: 'linear-gradient(90deg, #4b6cb7 0%, #182848 100%)',
+    },
+    fontSize: {
+        xs: '0.688rem', // 11px
+        sm: '0.85rem', // 13px
+        md: '0.938rem', // 15px
+        lg: '1.063rem', // 17px
+        xl: '1.188rem', // 19px
     },
     bps: {
         sm: '641px',
