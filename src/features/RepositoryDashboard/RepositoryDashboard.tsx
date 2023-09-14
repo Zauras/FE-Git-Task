@@ -6,9 +6,9 @@ import RepositoryList from '@/features/RepositoryDashboard/components/Repository
 import RepositorySearchPanel from '@/features/RepositoryDashboard/components/RepositorySearchPanel';
 import RepositorySearchPanelContainerSC from '@/features/RepositoryDashboard/styles/RepositorySearchPanelContainerSC.styles';
 import RepositoryDashboardSC from '@/features/RepositoryDashboard/styles/RepositoryDashboardSC.styles';
-import LoadingScreen from '@/features/RepositoryDashboard/components/LoadingScreen/LoadingScreen';
 import ErrorPopUp from '@/features/RepositoryDashboard/components/ErrorPopUp/ErrorPopUp';
 import { RepositoriesListContext } from '@/features/RepositoryDashboard/state/repositoriesList/RepositoriesListContext';
+import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 
 const RepositoryDashboard = () => {
     const { isLoading } = useContext(RepositoriesListContext);

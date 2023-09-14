@@ -1,5 +1,6 @@
-import LoadingScreenSC from './LoadingScreenSC.styles';
 import { ReactNode } from 'react';
+
+import LoadingScreenSC from '@/components/LoadingScreen/LoadingScreen.styles';
 
 const LoadingScreen = ({ isLoading, children }: { isLoading: boolean; children: ReactNode }) => {
     return (

@@ -4,7 +4,7 @@ import { GitHubAccessContext } from '@/features/UserPanel/state/githubAcessConte
 import ButtonSC from '@/components/Button/CommonButton/Button.styles';
 import TextInputSC from '@/components/Input/TextInput/TextInput.styles';
 import UserPanelContainerSC from '@/features/UserPanel/styles/UserPanelContainerSC.styles';
-import LoadingScreen from '../RepositoryDashboard/components/LoadingScreen/LoadingScreen';
+import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 
 const UserPanel = () => {
     const { isLoading, gitHubAccessDto, logInByAccessToken, logOut } =
