@@ -8,7 +8,7 @@ const LoadingScreen = ({ isLoading, children }: { isLoading: boolean; children: 
             {isLoading && (
                 <>
                     <div className="overlay-mask" />
-                    <div className="spinner">
+                    <progress className="spinner">
                         <svg viewBox="0 0 100 100">
                             <defs>
                                 <filter id="shadow">
@@ -17,7 +17,7 @@ const LoadingScreen = ({ isLoading, children }: { isLoading: boolean; children: 
                             </defs>
                             <circle cx="50" cy="50" r="45" />
                         </svg>
-                    </div>
+                    </progress>
                 </>
             )}
 
