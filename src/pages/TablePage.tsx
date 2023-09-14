@@ -103,7 +103,7 @@ const TablePage = () => {
 
             <div className="page-content">
                 <Table
-                    //isLoading={true}
+                    isLoading={true}
                     tableSettings={tableSettings}
                     tableConfig={tableConfig}
                     tableData={testData}
